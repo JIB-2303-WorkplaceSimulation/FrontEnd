@@ -1,3 +1,25 @@
+# Workplace Simulator
+
+A web-based 3D Workplace Simulator. Development in progress.
+
+# Release Notes
+
+## Version 0.1.0
+
+### New Features
+
+- An utils page for authorized administrators to manage users on our platform.
+
+### Bug Fixes
+
+N/A
+
+### Known Issues
+
+- The admin utils page is not connected to the backend database yet, and the page contains only dummy data that cannot be changed at the moment. We will fix this problem once the web application is connected to our directus.io database.
+
+#
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -8,7 +8,7 @@ function home () {
       <br />
       <ul>
         <li>
-          <Link to="/admin_page">Admin Page (To be completed)</Link>
+          <Link to="/admin_page">Administrator Utils Page</Link>
         </li>
         <li>
           <Link to="/sim_page">Spinning Cube / Simulation Page</Link>
