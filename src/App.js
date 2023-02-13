@@ -1,25 +1,21 @@
+import './App.css';
 import {
-  BrowserRouter as Router,
-  Switch,
+  BrowserRouter,
+  Routes,
   Route,
-  Redirect,
 } from "react-router-dom";
-import admin_page from "./components/admin_page";
-import home from "./components/home"
-import sim_page from "./components/sim_page"
+import Home from "./pages/Home";
+import SimList from "./pages/SimList"
 
-function App () {
+function App() {
   return (
-    <>
-      <Router>
-		    <Switch>
-        <Route exact path="/" component={home} />
-        <Route path="/admin_page" component={admin_page} />
-        <Route path="/sim_page" component={sim_page} />
-        <Redirect to="/" />
-        </Switch>
-	    </Router>
-    </>
+    <BrowserRouter className="App">
+		  <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="simlist/:simID" element={<SimList/>} />
+      </Routes>
+	  </BrowserRouter>
   )
 }
-export default App
+
+export default App;
