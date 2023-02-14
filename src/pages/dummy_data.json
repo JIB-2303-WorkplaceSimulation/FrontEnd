@@ -1,0 +1,44 @@
+[
+
+    {
+        "id": 1,
+        "name":"Alec Violette",
+        "email":"aviolette3@gatech.edu",
+        "role":"Project Lead"
+    },
+    
+    {
+        "id": 2,
+        "name":"Aditya Sasanur",
+        "email":"asasanur@gatech.edu",
+        "role":"Developer"
+    },
+    
+    {
+        "id": 3,
+        "name":"Pranav Avula",
+        "email":"pavula@gatech.edu",
+        "role":"Developer"
+    },
+    
+    {
+        "id": 4,
+        "name":"Weilong Shen",
+        "email":"wshen61@gatech.edu",
+        "role":"Developer"
+    },
+    
+    {
+        "id": 5,
+        "name":"Karthik Sundar",
+        "email":"ksundar3@gatech.edu",
+        "role":"Developer"
+    },
+    
+    {
+        "id": 6,
+        "name":"Sunjin Im",
+        "email":"sim35@gatech.edu",
+        "role":"Developer"
+    }
+]

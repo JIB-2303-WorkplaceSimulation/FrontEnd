@@ -1,15 +1,19 @@
 body {
-  background-color: #61dafb;
+  background-color: #0317fe;
   font-family: Calibri;
-  font-size: x-large;
+  font-size: large;
   line-height: 2;
+  justify-content: center;
+  color: white;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 input {
   border-radius: 25px;
   background-color:rgb(247, 254, 157);
   font-family: Arial;
-  font-size: large;
+  font-size: medium;
   height: 40px;
   width: 300px;
   text-align: center;
@@ -19,8 +23,35 @@ button {
   border-radius: 20px;
   background-color: #ee2d0b;
   font-family: Arial;
-  font-size: large;
+  font-size: medium;
   height: 30px;
   width: 100px;
   text-align: center;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: medium;
+  border: 2px solid rgb(0, 255, 0);
+  width: 800px;
+  border-radius: 20px;
+}
+
+th {
+  border: 2px solid rgb(0, 255, 0);
+  border-radius: 20px;
+}
+
+td {
+  border: 1px solid rgb(0, 255, 0);
+  border-radius: 20px;
+}
+
+.center{
+  text-align: center;
+}
+
+.link {
+  color: yellow;
 }
