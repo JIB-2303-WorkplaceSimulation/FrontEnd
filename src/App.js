@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import SimList from "./pages/SimList"
+import Unspecified from "./pages/Unspecified"
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
 		  <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="simlist/:simID" element={<SimList/>} />
+        <Route path="/*" element={<Unspecified/>} />
       </Routes>
 	  </BrowserRouter>
   )
