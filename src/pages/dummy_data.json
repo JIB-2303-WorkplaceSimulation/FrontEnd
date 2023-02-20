@@ -1,44 +1,38 @@
 [
-
-    {
-        "id": 1,
-        "name":"Alec Violette",
-        "email":"aviolette3@gatech.edu",
-        "role":"Project Lead"
-    },
-    
-    {
-        "id": 2,
-        "name":"Aditya Sasanur",
-        "email":"asasanur@gatech.edu",
-        "role":"Developer"
-    },
-    
-    {
-        "id": 3,
-        "name":"Pranav Avula",
-        "email":"pavula@gatech.edu",
-        "role":"Developer"
-    },
-    
-    {
-        "id": 4,
-        "name":"Weilong Shen",
-        "email":"wshen61@gatech.edu",
-        "role":"Developer"
-    },
-    
-    {
-        "id": 5,
-        "name":"Karthik Sundar",
-        "email":"ksundar3@gatech.edu",
-        "role":"Developer"
-    },
-    
-    {
-        "id": 6,
-        "name":"Sunjin Im",
-        "email":"sim35@gatech.edu",
-        "role":"Developer"
-    }
+	{
+		"id": 1,
+		"x_coord": "0.00000",
+		"y_coord": "0.00000",
+		"z_coord": "0.00000",
+		"type": "Chair",
+		"sim_id": 4,
+		"Name": "Aditya's Chair"
+	},
+	{
+		"id": 2,
+		"x_coord": "0.00000",
+		"y_coord": "2.00000",
+		"z_coord": "0.00000",
+		"type": "Table",
+		"sim_id": 4,
+		"Name": "Aditya's Table"
+	},
+	{
+		"id": 3,
+		"x_coord": "0.00000",
+		"y_coord": "0.00000",
+		"z_coord": "0.00000",
+		"type": "Table",
+		"sim_id": 5,
+		"Name": "Desk"
+	},
+	{
+		"id": 4,
+		"x_coord": "1.00000",
+		"y_coord": "0.00000",
+		"z_coord": "0.00000",
+		"type": "Chair",
+		"sim_id": 5,
+		"Name": "Office Chair 01"
+	}
 ]

@@ -21,9 +21,12 @@ function SimList(){
         <table className="center">
           <thead>
             <tr>
+              <th>x-coordinate</th>
+              <th>y-coordinate</th>
+              <th>z-coordinate</th>
+              <th>Type</th>
+              <th>Simulation ID</th>
               <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
             </tr>
           </thead>
           <tbody>
@@ -38,9 +41,12 @@ function SimList(){
     (info)=>{
         return(
             <tr key={info.id}>
-                <td>{info.name}</td>
-                <td>{info.email}</td>
-                <td>{info.role}</td>
+                <td>{info.x_coord}</td>
+                <td>{info.y_coord}</td>
+                <td>{info.z_coord}</td>
+                <td>{info.type}</td>
+                <td>{info.sim_id}</td>
+                <td>{info.Name}</td>
             </tr>
         )
     }
