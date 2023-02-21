@@ -4,6 +4,23 @@ A web-based 3D Simulator designed to help workplaces more efficiently manage the
 
 # Release Notes
 
+## Version 0.2.0
+
+### Features
+
+- Utils page for authorized administrators has been removed.
+- Simulation login page has been added
+- Frontend data visualization enables
+- Webpage pulls data from Directus backend
+
+### Bug Fixes
+
+- Admin utils page was removed, simulation login page was added
+
+### Known Issues
+
+- Simulation ID filter needs to be worked on
+
 ## Version 0.1.0
 
 ### Features
