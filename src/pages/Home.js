@@ -5,10 +5,7 @@ function Home(){
   const [input, setInput] = useState('');
   const navigate = useNavigate();
   const handleClick = () => {
-    if (input.length !== 5) {
-      setInput("");
-      alert("The length of the ID you entered is incorrect. Please enter a 5-digit Simulation ID.")
-    } else if (!(/^\d+$/.test(input))) {
+    if (!(/^\d+$/.test(input))) {
       setInput("");
       alert("The simulation ID should only contain numbers.")
     } else {

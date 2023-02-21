@@ -1,18 +1,26 @@
-import React from 'react';
+import {React, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import dummy_data from './dummy_data.json';
+import axios from 'axios';
+
+
 
 function SimList(){
   //console.log("this is dummy data, name: " + dummy_data.name);
   let params = useParams();
   var id = params.simID;
+  const [input, setInput] = useState([]);
+
+  axios.get("https://jsv2r3kn.directus.app/items/Furniture").then
+  ((result) => {
+     setInput(result.data.data);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+
   const checkID = (inp) => {
-    if (inp.length !== 5) return(
-      <div>
-        <p className="center">Simulation ID is invalid, please return to home page</p>
-        <p className="center"><Link to="/" class="link">Back to home page</Link></p>
-      </div>
-    );
     return (
       <div>
         <p className="center">The Simulation ID input is {inp}</p>
@@ -36,8 +44,12 @@ function SimList(){
         <p className="center"><Link to="/" className="link">Back to home page</Link></p>
       </div>
     );
+
+    
   }
-  const DisplayData = dummy_data.map(
+
+
+  const DisplayData = input.map(
     (info)=>{
         return(
             <tr key={info.id}>
@@ -56,6 +68,8 @@ function SimList(){
       {checkID(id)}
     </div>
   );
+
+  
 }
 
 export default SimList;
