@@ -29,8 +29,7 @@ function SimList(){
     return (
       <div>
         <p className="center">The Simulation ID input is {inp}</p>
-        <p className="center">Here is a table with dummy data from "src/pages/dummy_data.json"</p>
-        <p className="center">When Directus API is figured out, I will change this table to show contents in our database, like furniture and their xyz locations.</p>
+        <p className="center">This data is from our Directus database</p>
         <table className="center">
           <thead>
             <tr>

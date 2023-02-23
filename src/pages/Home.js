@@ -29,10 +29,6 @@ function Home(){
         <p><input onChange={handleChange} onKeyDown={handleKey} value={input} placeholder="Enter Simulation ID Here"/></p>
         <p><button onClick={handleClick}>Submit</button></p>
       </div>
-      <p className="center">Updated Tuesday, February 14, 2023 by William. As a starting point, I have set
-      this program to only take a 5-digit number as the simulation ID. We can change this later if there is
-      need. Feel free to play around with the program, including invalid simulation ID inputs, invalid 
-      URLs, and others. Let me know if there is any problems with this.</p>
     </>
   )
 }
