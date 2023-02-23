@@ -1,0 +1,38 @@
+[
+	{
+		"id": 1,
+		"x_coord": "0.00000",
+		"y_coord": "0.00000",
+		"z_coord": "0.00000",
+		"type": "Chair",
+		"sim_id": 4,
+		"Name": "Aditya's Chair"
+	},
+	{
+		"id": 2,
+		"x_coord": "0.00000",
+		"y_coord": "2.00000",
+		"z_coord": "0.00000",
+		"type": "Table",
+		"sim_id": 4,
+		"Name": "Aditya's Table"
+	},
+	{
+		"id": 3,
+		"x_coord": "0.00000",
+		"y_coord": "0.00000",
+		"z_coord": "0.00000",
+		"type": "Table",
+		"sim_id": 5,
+		"Name": "Desk"
+	},
+	{
+		"id": 4,
+		"x_coord": "1.00000",
+		"y_coord": "0.00000",
+		"z_coord": "0.00000",
+		"type": "Chair",
+		"sim_id": 5,
+		"Name": "Office Chair 01"
+	}
+]
