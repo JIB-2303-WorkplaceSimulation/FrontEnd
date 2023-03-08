@@ -15,7 +15,7 @@ export default function App() {
 		  <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="simlist/:simID" element={<SimList/>} />
-        <Route path="simvis" element={<SimVis/>} />
+        <Route path="simvis/:simID" element={<SimVis/>} />
         <Route path="/*" element={<Unspecified/>} />
       </Routes>
 	  </BrowserRouter>

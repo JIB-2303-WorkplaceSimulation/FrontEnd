@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, useNavigate} from 'react-router-dom';
 // import dummy_data from './dummy_data.json';
 import axios from 'axios';
 
@@ -8,9 +8,12 @@ import axios from 'axios';
 export default function SimList(){
   let params = useParams();
   var id = parseInt(params.simID);
+  const navigate = useNavigate();
   const [rooms, setRooms] = useState([]);
   const [furniture, setFurniture] = useState([]);
-  var furniture_ids = [];
+  var furniture_ids = [];const handleClick = () => {
+    navigate("../simvis/"+id);
+  };
 
 
   useEffect(() => {
@@ -81,6 +84,7 @@ export default function SimList(){
             {DisplayFurnitureData}
           </tbody>
         </table>
+        <p className="center"><button style={{ width: "100px", height: "50px",}} onClick={handleClick}>Go to Simulation</button></p>
         <p className="center"><Link to="/" className="link">Back to home page</Link></p>
       </div>
     ); 
