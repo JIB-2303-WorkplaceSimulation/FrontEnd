@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 
-function SimList(){
+export default function SimList(){
   let params = useParams();
   var id = parseInt(params.simID);
   const [rooms, setRooms] = useState([]);
@@ -57,9 +57,9 @@ function SimList(){
             <tr>
               <th>Name</th>
               <th>Corner_1_x</th>
-              <th>Corner_1_y</th>
+              <th>Corner_1_z</th>
               <th>Corner_2_x</th>
-              <th>Corner_2_y</th>
+              <th>Corner_2_z</th>
             </tr>
           </thead>
           <tbody>
@@ -104,9 +104,9 @@ function SimList(){
           <tr key={info.id}>
               <td>{info.room_name}</td>
               <td>{info.Corner1_xcoord}</td>
-              <td>{info.Corner1_ycoord}</td>
+              <td>{info.Corner1_zcoord}</td>
               <td>{info.Corner2_xcoord}</td>
-              <td>{info.Corner2_ycoord}</td>
+              <td>{info.Corner2_zcoord}</td>
           </tr>
         )
     }
@@ -119,5 +119,3 @@ function SimList(){
 
   
 }
-
-export default SimList;
