@@ -11,7 +11,8 @@ export default function SimList(){
   const navigate = useNavigate();
   const [rooms, setRooms] = useState([]);
   const [furniture, setFurniture] = useState([]);
-  var furniture_ids = [];const handleClick = () => {
+  var furniture_ids = [];
+  const handleClick = () => {
     navigate("../simvis/"+id);
   };
 
