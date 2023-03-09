@@ -1,10 +1,52 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useParams, useState } from "react";
 import * as THREE from "three";
+import axios from 'axios';
 
 const SimVis = () => {
     const canvasRef = useRef();
+    var id = window.location.pathname.substring(8)
+    const [rooms, setRooms] = useState([]);
+    const [furniture, setFurniture] = useState([]);
+    var furniture_ids = [];
+
+    useEffect(() => {
+        //Runs on the first render
+        //And any time any dependency value changes
+        axios.get("https://jsv2r3kn.directus.app/items/Room").then
+    ((result) => {
+        setRooms(result.data.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }, [], rooms);
+
+    useEffect(() => {
+        //Runs on the first render
+        //And any time any dependency value changes
+        axios.get("https://jsv2r3kn.directus.app/items/Furniture").then
+    ((result) => {
+        setFurniture(result.data.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }, [], furniture);
+
+    rooms.filter(obj => obj.sim_id === id).forEach(
+        (info)=>{
+        function add(value) {
+            furniture_ids.push(value)
+        }
+        info.room_furniture.forEach(add)
+        }
+    )
+    console.log(rooms)
+    console.log(furniture)
+
     useEffect(() => {
 
+        
         // Sizes variables for ease of use
         const sizes = {
             width: window.innerWidth,
