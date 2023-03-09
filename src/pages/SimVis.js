@@ -65,21 +65,21 @@ const SimVis = () => {
         document.body.appendChild( canvas ); //This is magic but it basically just makes it so that react can read the threejs that's happening here
         
 
-        // rooms.forEach(room => {
-        //     if (room.sim_id == id) {
-        //         // Do something with the filtered room object
-        //         var x = Math.abs(room.Corner1_xcoord - room.Corner2_xcoord)
-        //         var y = 1
-        //         var z = Math.abs(room.Corner1_zcoord - room.Corner2_zcoord)
-        //         var a = (room.Corner2_xcoord - room.Corner1_xcoord)/2
-        //         var b = (room.Corner2_zcoord - room.Corner1_zcoord)/2
-        //         var geometry = new THREE.BoxGeometry(Math.abs(x,y,z))
-        //         var material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
-        //         var mesh = new THREE.Mesh(geometry, material)
-        //         mesh.position.set(a,0,b)
-        //         scene.add(mesh)
-        //     }
-        // });
+        rooms.forEach(room => {
+            if (room.sim_id == id) {
+                // Do something with the filtered room object
+                var x = Math.abs(room.Corner1_xcoord - room.Corner2_xcoord)
+                var y = 1
+                var z = Math.abs(room.Corner1_zcoord - room.Corner2_zcoord)
+                var a = (room.Corner2_xcoord - room.Corner1_xcoord)/2
+                var b = (room.Corner2_zcoord - room.Corner1_zcoord)/2
+                var geometry = new THREE.BoxGeometry(Math.abs(x,y,z))
+                var material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+                var mesh = new THREE.Mesh(geometry, material)
+                mesh.position.set(a,0,b)
+                scene.add(mesh)
+            }
+        });
         // Creates a red box with all sides being 1 unit long. Creates a mesh out of the geometry and material and adds it to the scene
         // scene.add(new THREE.Mesh(
         //     new THREE.BoxGeometry(
