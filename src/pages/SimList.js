@@ -1,16 +1,20 @@
 import {React, useState, useEffect} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, useNavigate} from 'react-router-dom';
 // import dummy_data from './dummy_data.json';
 import axios from 'axios';
 
 
 
-function SimList(){
+export default function SimList(){
   let params = useParams();
   var id = parseInt(params.simID);
+  const navigate = useNavigate();
   const [rooms, setRooms] = useState([]);
   const [furniture, setFurniture] = useState([]);
   var furniture_ids = [];
+  const handleClick = () => {
+    navigate("../simvis/"+id);
+  };
 
 
   useEffect(() => {
@@ -57,9 +61,9 @@ function SimList(){
             <tr>
               <th>Name</th>
               <th>Corner_1_x</th>
-              <th>Corner_1_y</th>
+              <th>Corner_1_z</th>
               <th>Corner_2_x</th>
-              <th>Corner_2_y</th>
+              <th>Corner_2_z</th>
             </tr>
           </thead>
           <tbody>
@@ -81,6 +85,7 @@ function SimList(){
             {DisplayFurnitureData}
           </tbody>
         </table>
+        <p className="center"><button style={{ width: "100px", height: "50px",}} onClick={handleClick}>Go to Simulation</button></p>
         <p className="center"><Link to="/" className="link">Back to home page</Link></p>
       </div>
     ); 
@@ -104,9 +109,9 @@ function SimList(){
           <tr key={info.id}>
               <td>{info.room_name}</td>
               <td>{info.Corner1_xcoord}</td>
-              <td>{info.Corner1_ycoord}</td>
+              <td>{info.Corner1_zcoord}</td>
               <td>{info.Corner2_xcoord}</td>
-              <td>{info.Corner2_ycoord}</td>
+              <td>{info.Corner2_zcoord}</td>
           </tr>
         )
     }
@@ -119,5 +124,3 @@ function SimList(){
 
   
 }
-
-export default SimList;

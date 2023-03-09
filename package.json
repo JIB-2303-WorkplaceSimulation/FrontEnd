@@ -2,6 +2,7 @@
   "name": "simulation-frontend",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
@@ -11,9 +12,11 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
-    "web-vitals": "^3.1.1"
+    "web-vitals": "^3.1.1",
+    "three": "^0.148.0"
   },
   "scripts": {
+    "dev": "vite",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -24,6 +27,9 @@
       "react-app",
       "react-app/jest"
     ]
+  },
+  "devDependencies": {
+    "vite": "^4.0.4"
   },
   "browserslist": {
     "production": [
