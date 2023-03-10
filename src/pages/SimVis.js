@@ -45,13 +45,13 @@ function SimVis() {
     });
     setFurnitureIds(newFurnitureIds);
   }, [rooms]);
-
+  console.log(furniture)
   return (
     <div style={{ width: '100%', height: '100vh' }}>
       <Canvas>
         <OrbitControls enableDamping maxPolarAngle={Math.PI/2} />
         <ambientLight intensity={0.1} />
-        <ambientLight color="red" position={[0, 0, 5]} />
+        <ambientLight color={ 0xffffff } position={[0, 10, 5]} />
         <group ref={groupRef}>
           {rooms
             .filter((room) => room.sim_id == id)
@@ -61,10 +61,11 @@ function SimVis() {
               const z = Math.abs(room.Corner1_zcoord - room.Corner2_zcoord);
               const a = (room.Corner2_xcoord + room.Corner1_xcoord) / 2;
               const b = (room.Corner2_zcoord + room.Corner1_zcoord) / 2;
+              var color = 0x800080
               return (
                 <mesh receiveShadow castShadow key={room.id} position={[a,0,b]}>
                   <boxGeometry args={[x,y,z]} />
-                  <meshPhongMaterial color={new THREE.Color('#dbdbdb')} />
+                  <meshPhongMaterial color={new THREE.Color(color)} />
                 </mesh>
               );
             })
@@ -74,10 +75,15 @@ function SimVis() {
             .map((f) => {
               const x = f.x_coord;
               const z = f.z_coord;
+              if (f.type == "Chair") {
+                var color = 0x0000ff
+              } else if (f.type == "Table") {
+                var color = 0x00ff00
+              }
               return (
                 <mesh receiveShadow castShadow key={f.id} position={[x,0.5,z]}>
                   <boxGeometry args={[1,1,1]} />
-                  <meshPhongMaterial color={new THREE.Color('#bfbfbf')} />
+                  <meshPhongMaterial color={new THREE.Color(color)} />
                 </mesh>
               )
             })
