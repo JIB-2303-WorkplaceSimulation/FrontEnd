@@ -1,120 +1,98 @@
-import { useRef, useEffect, useParams, useState } from "react";
-import * as THREE from "three";
+import React, { useRef, useState, useEffect } from 'react';
+import { Canvas, useFrame } from 'react-three-fiber';
+import { OrbitControls, PerspectiveCamera, OrthographicCamera } from '@react-three/drei';
+import { Vector3, Group } from 'three';
+import * as THREE from 'three';
 import axios from 'axios';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-const SimVis = () => {
+function SimVis() {
+  const groupRef = useRef();
   const canvasRef = useRef();
-  var id = window.location.pathname.substring(8)
   const [rooms, setRooms] = useState([]);
   const [furniture, setFurniture] = useState([]);
-  var furniture_ids = [];
+  const [furnitureIds, setFurnitureIds] = useState([]);
+  const id = window.location.pathname.substring(8);
+
 
   useEffect(() => {
-      //Runs on the first render
-      //And any time any dependency value changes
-      axios.get("https://jsv2r3kn.directus.app/items/Room").then
-  ((result) => {
-      setRooms(result.data.data);
+    axios
+      .get('https://jsv2r3kn.directus.app/items/Room')
+      .then((result) => {
+        setRooms(result.data.data);
       })
       .catch((err) => {
-          console.log(err);
+        console.log(err);
       });
-  }, [], rooms); 
-
-  useEffect(() => {
-      //Runs on the first render
-      //And any time any dependency value changes
-      axios.get("https://jsv2r3kn.directus.app/items/Furniture").then
-  ((result) => {
-      setFurniture(result.data.data);
-      })
-      .catch((err) => {
-          console.log(err);
-      });
-  }, [], furniture);
-
-  rooms.filter(obj => obj.sim_id === id).forEach(
-      (info)=>{
-      function add(value) {
-          furniture_ids.push(value)
-      }
-      info.room_furniture.forEach(add)
-      }
-  )
-
-  useEffect(() => {
-
-    console.log(rooms)
-    // Sizes variables for ease of use
-    const sizes = {
-      width: window.innerWidth,
-      height: window.innerHeight
-    }
-    var scene = new THREE.Scene(); // Instantiates a scene
-    console.log("still working")
-    //Creates a perspective camera 3 units away from origin
-    const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-    camera.position.z = 9
-    camera.position.y = 7
-    camera.lookAt(0,0,0)
-    console.log("still working again")
-    var renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current }) //Creates the renderer object
-    var canvas = renderer.domElement // we make several calls to renderer.domElement so I call it canvas for ease of use
-    renderer.setSize(sizes.width, sizes.height) // this sets the size of the render to the size of the browser window
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1)) // Good for performance. Turn it to 0.1 and see what happens (it's p cool) :)
-    document.body.appendChild( canvas ); //This is magic but it basically just makes it so that react can read the threejs that's happening here
-    
-    const group = new THREE.Group()
-    rooms.forEach(room => {
-      console.log("we in herer")
-      if (room.sim_id == id) {
-          // Do something with the filtered room object
-          var x = Math.abs(room.Corner1_xcoord - room.Corner2_xcoord)
-          var y = 2
-          var z = Math.abs(room.Corner1_zcoord - room.Corner2_zcoord)
-          console.log(x,y,z)
-          var a = (room.Corner2_xcoord + room.Corner1_xcoord)/2
-          var b = (room.Corner2_zcoord + room.Corner1_zcoord)/2
-          var geometry = new THREE.BoxGeometry(Math.abs(x,y,z))
-          var material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
-          var mesh = new THREE.Mesh(geometry, material)
-          mesh.position.set(a,0,b)
-          console.log(mesh.position)
-          group.add(mesh)
-      }
-    });
-    scene.add(group)
-
-    var controls = new OrbitControls(camera, renderer.domElement)
-    controls.enableDamping = true
-    controls.maxPolarAngle = Math.PI/2; // radians
-    
-    const geometry = new THREE.BoxGeometry(1, 1, 1)
-    const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
-    const mesh = new THREE.Mesh(geometry, material)
-    scene.add(mesh)
-
-    const animate = () =>
-    {
-        // const elapsedTime = clock.getElapsedTime()
-
-        // Update controls
-        controls.update()
-
-        // Render
-        renderer.render(scene, camera)
-
-        // Call tick again on the next frame
-        window.requestAnimationFrame(animate)
-    }
-    animate();
   }, []);
 
-  // Returns the render
+  useEffect(() => {
+    axios
+      .get('https://jsv2r3kn.directus.app/items/Furniture')
+      .then((result) => {
+        setFurniture(result.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    const newFurnitureIds = [];
+    rooms.filter((obj) => obj.sim_id == id).forEach((info) => {
+      info.room_furniture.forEach((furnitureId) => {
+        newFurnitureIds.push(furnitureId);
+      });
+    });
+    setFurnitureIds(newFurnitureIds);
+  }, [rooms]);
+  console.log(furniture)
   return (
-    <canvas ref={canvasRef} />
+    <div style={{ width: '100%', height: '100vh' }}>
+      <Canvas>
+        <OrbitControls enableDamping maxPolarAngle={Math.PI/2} />
+        <ambientLight intensity={0.1} />
+        <ambientLight color={ 0xffffff } position={[0, 10, 5]} />
+        <group ref={groupRef}>
+          {rooms
+            .filter((room) => room.sim_id == id)
+            .map((room) => {
+              const x = Math.abs(room.Corner1_xcoord - room.Corner2_xcoord);
+              const y = 0.05;
+              const z = Math.abs(room.Corner1_zcoord - room.Corner2_zcoord);
+              const a = (room.Corner2_xcoord + room.Corner1_xcoord) / 2;
+              const b = (room.Corner2_zcoord + room.Corner1_zcoord) / 2;
+              var color = 0x800080
+              return (
+                <mesh receiveShadow castShadow key={room.id} position={[a,0,b]}>
+                  <boxGeometry args={[x,y,z]} />
+                  <meshPhongMaterial color={new THREE.Color(color)} />
+                </mesh>
+              );
+            })
+          }
+          {furniture
+            .filter((f) => furnitureIds.includes(f.id))
+            .map((f) => {
+              const x = f.x_coord;
+              const z = f.z_coord;
+              if (f.type == "Chair") {
+                var color = 0x0000ff
+              } else if (f.type == "Table") {
+                var color = 0x00ff00
+              }
+              return (
+                <mesh receiveShadow castShadow key={f.id} position={[x,0.5,z]}>
+                  <boxGeometry args={[1,1,1]} />
+                  <meshPhongMaterial color={new THREE.Color(color)} />
+                </mesh>
+              )
+            })
+          }
+        </group>
+        <PerspectiveCamera near={0.1} far={1000} position={[0, 0, 5]} lookAt={groupRef.current ? groupRef.current.position : [0, 0, 0]} />
+      </Canvas>
+    </div>
   );
-}
+};
 
 export default SimVis;
