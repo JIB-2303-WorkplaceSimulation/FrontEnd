@@ -5,8 +5,6 @@ body {
   line-height: 2;
   justify-content: center;
   color: white;
-  margin-left: 50px;
-  margin-right: 50px;
 }
 
 input {
@@ -25,7 +23,7 @@ button {
   font-family: Arial;
   font-size: medium;
   height: 30px;
-  width: 25%;
+  width: 100px;
   text-align: center;
 }
 
@@ -63,7 +61,8 @@ td {
 }
 
 .box{
-  width: 30%;
+  width: 450px;
+  min-width: 250px;
   background-color: #fff;
   color: #151531;
   border: 1px solid #ccc;
