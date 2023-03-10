@@ -77,7 +77,6 @@ export default function SimList(){
               <th>Name</th>
               <th>Type</th>
               <th>x-coordinate</th>
-              <th>y-coordinate</th>
               <th>z-coordinate</th>
             </tr>
           </thead>
@@ -97,7 +96,6 @@ export default function SimList(){
                 <td>{info.Name}</td>
                 <td>{info.type}</td>
                 <td>{info.x_coord}</td>
-                <td>{info.y_coord}</td>
                 <td>{info.z_coord}</td>
             </tr>
         )

@@ -25,10 +25,12 @@ function Home(){
       <h1 className="center">Welcome to Workplace Simulation!</h1>
       <h2 className="center">Please Login</h2>
       <div className="center">
-        <p>Enter your Simulation ID to proceed</p>
-        <p><input onChange={handleChange} onKeyDown={handleKey} value={input} placeholder="Enter Simulation ID Here"/></p>
-        <p><button onClick={handleClick}>Submit</button></p>
-        <p>(Only simulation ID 10 works at this time - entering other IDs will take us to a page with empty tables)</p>
+        <div className="box">
+          <h1 style={{ color: 'black', fontSize: '28px' }}>Enter your Simulation ID to proceed</h1>
+          <p><input onChange={handleChange} onKeyDown={handleKey} value={input} placeholder="Enter Simulation ID Here"/></p>
+          <p><button onClick={handleClick}>Submit</button></p>
+          <p>(Only simulation ID 10 works at this time - entering other IDs will take us to a page with empty tables)</p>
+        </div>
       </div>
     </>
   )

@@ -5,8 +5,6 @@ body {
   line-height: 2;
   justify-content: center;
   color: white;
-  margin-left: 50px;
-  margin-right: 50px;
 }
 
 input {
@@ -21,7 +19,17 @@ input {
 
 button {
   border-radius: 20px;
-  background-color: #ee2d0b;
+  background-color: #d000d0;
+  font-family: Arial;
+  font-size: medium;
+  height: 30px;
+  width: 100px;
+  text-align: center;
+}
+
+rect {
+  border-radius: 20px;
+  background-color: #d000d0;
   font-family: Arial;
   font-size: medium;
   height: 30px;
@@ -52,6 +60,17 @@ td {
   text-align: center;
 }
 
+.box{
+  width: 450px;
+  min-width: 250px;
+  background-color: #fff;
+  color: #151531;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 0 auto; /* Center the element horizontally */
+  border-radius: 10px; /* Round the corners */
+}
+
 .link {
-  color: yellow;
+  color: #f000f0;
 }
