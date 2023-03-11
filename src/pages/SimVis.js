@@ -62,7 +62,7 @@ function SimVis() {
               const b = (room.Corner2_zcoord + room.Corner1_zcoord) / 2;
               var color = 0x800080
               return (
-                <mesh receiveShadow castShadow key={room.id} position={[a,0,b]}>
+                <mesh receiveShadow castShadow key={room.id*10} position={[a,0,b]}>
                   <boxGeometry args={[x,y,z]} />
                   <meshPhongMaterial color={new THREE.Color(color)} />
                 </mesh>
@@ -75,25 +75,79 @@ function SimVis() {
               const x = f.x_coord;
               const z = f.z_coord;
               var color = 0x0;
-              var element= [];
+              var element = [];
               if (f.type === "Chair") {
-                color = 0x0000ff
+                color = 0x0000ff;
                 element.push(
-                  <mesh receiveShadow castShadow key={f.id} position={[x,0.5,z]}>
-                    <boxGeometry args={[1,1,1]} />
+                  <mesh receiveShadow castShadow key={f.id*10} position={[x,1,z]}>
+                    <boxGeometry args={[1,0.1,1]} />
                     <meshPhongMaterial color={new THREE.Color(color)} />
                   </mesh>
-                )
+                );
+                element.push(
+                  <mesh receiveShadow castShadow key={f.id*10+1} position={[x+0.4,0.5,z-0.4]}>
+                    <boxGeometry args={[0.1,1,0.1]} />
+                    <meshPhongMaterial color={new THREE.Color(color)} />
+                  </mesh>
+                );
+                element.push(
+                  <mesh receiveShadow castShadow key={f.id*10+2} position={[x-0.4,0.5,z-0.4]}>
+                    <boxGeometry args={[0.1,1,0.1]} />
+                    <meshPhongMaterial color={new THREE.Color(color)} />
+                  </mesh>
+                );
+                element.push(
+                  <mesh receiveShadow castShadow key={f.id*10+3} position={[x+0.4,0.5,z+0.4]}>
+                    <boxGeometry args={[0.1,1,0.1]} />
+                    <meshPhongMaterial color={new THREE.Color(color)} />
+                  </mesh>
+                );
+                element.push(
+                  <mesh receiveShadow castShadow key={f.id*10+4} position={[x-0.4,0.5,z+0.4]}>
+                    <boxGeometry args={[0.1,1,0.1]} />
+                    <meshPhongMaterial color={new THREE.Color(color)} />
+                  </mesh>
+                );
+                element.push(
+                  <mesh receiveShadow castShadow key={f.id*10+5} position={[x-0.4,1.75,z]}>
+                    <boxGeometry args={[0.1,1.5,1]} />
+                    <meshPhongMaterial color={new THREE.Color(color)} />
+                  </mesh>
+                );
               } else if (f.type === "Table") {
-                color = 0x00ff00
+                color = 0x00ff00;
                 element.push(
-                  <mesh receiveShadow castShadow key={f.id} position={[x,0.5,z]}>
-                    <sphereGeometry args={[0.5]} />
+                  <mesh receiveShadow castShadow key={f.id*10} position={[x,1.75,z]}>
+                    <boxGeometry args={[2,0.1,4]} />
                     <meshPhongMaterial color={new THREE.Color(color)} />
                   </mesh>
-                )
+                );
+                element.push(
+                  <mesh receiveShadow castShadow key={f.id*10+1} position={[x+0.9,0.875,z-1.9]}>
+                    <boxGeometry args={[0.1,1.75,0.1]} />
+                    <meshPhongMaterial color={new THREE.Color(color)} />
+                  </mesh>
+                );
+                element.push(
+                  <mesh receiveShadow castShadow key={f.id*10+2} position={[x-0.9,0.875,z+1.9]}>
+                    <boxGeometry args={[0.1,1.75,0.1]} />
+                    <meshPhongMaterial color={new THREE.Color(color)} />
+                  </mesh>
+                );
+                element.push(
+                  <mesh receiveShadow castShadow key={f.id*10+3} position={[x+0.9,0.875,z+1.9]}>
+                    <boxGeometry args={[0.1,1.75,0.1]} />
+                    <meshPhongMaterial color={new THREE.Color(color)} />
+                  </mesh>
+                );
+                element.push(
+                  <mesh receiveShadow castShadow key={f.id*10+4} position={[x-0.9,0.875,z-1.9]}>
+                    <boxGeometry args={[0.1,1.75,0.1]} />
+                    <meshPhongMaterial color={new THREE.Color(color)} />
+                  </mesh>
+                );
               }
-              return element
+              return element;
             })
           }
         </group>
