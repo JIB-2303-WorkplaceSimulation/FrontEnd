@@ -3,8 +3,6 @@ import {Link, useParams} from 'react-router-dom';
 // import dummy_data from './dummy_data.json';
 import axios from 'axios';
 
-
-
 function SimList(){
   //console.log("this is dummy data, name: " + dummy_data.name);
   let params = useParams();
