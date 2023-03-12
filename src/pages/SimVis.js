@@ -115,7 +115,7 @@ function SimVis() {
                   </mesh>
                 );
               } else if (f.type === "Table") {
-                color = 0x00ff00;
+                color = 0x468468;
                 var x_len = f.x_length;
                 var z_len = f.z_length;
                 element.push(
