@@ -78,5 +78,3 @@ function SimList(){
 }
 
 export default SimList;
-
-
