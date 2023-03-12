@@ -77,7 +77,7 @@ function SimVis() {
               var color = 0x0;
               var element = [];
               if (f.type === "Chair") {
-                color = 0x0000ff;
+                color = 0xF28C28;
                 element.push(
                   <mesh receiveShadow castShadow key={f.id*10} position={[x,1,z]}>
                     <boxGeometry args={[1,0.1,1]} />
