@@ -116,32 +116,34 @@ function SimVis() {
                 );
               } else if (f.type === "Table") {
                 color = 0x00ff00;
+                var x_len = f.x_length;
+                var z_len = f.z_length;
                 element.push(
                   <mesh receiveShadow castShadow key={f.id*10} position={[x,1.75,z]}>
-                    <boxGeometry args={[2,0.1,4]} />
+                    <boxGeometry args={[x_len,0.1,z_len]} />
                     <meshPhongMaterial color={new THREE.Color(color)} />
                   </mesh>
                 );
                 element.push(
-                  <mesh receiveShadow castShadow key={f.id*10+1} position={[x+0.9,0.875,z-1.9]}>
+                  <mesh receiveShadow castShadow key={f.id*10+1} position={[x+x_len/2-0.1,0.875,z-z_len/2+0.1]}>
                     <boxGeometry args={[0.1,1.75,0.1]} />
                     <meshPhongMaterial color={new THREE.Color(color)} />
                   </mesh>
                 );
                 element.push(
-                  <mesh receiveShadow castShadow key={f.id*10+2} position={[x-0.9,0.875,z+1.9]}>
+                  <mesh receiveShadow castShadow key={f.id*10+2} position={[x-x_len/2+0.1,0.875,z+z_len/2-0.1]}>
                     <boxGeometry args={[0.1,1.75,0.1]} />
                     <meshPhongMaterial color={new THREE.Color(color)} />
                   </mesh>
                 );
                 element.push(
-                  <mesh receiveShadow castShadow key={f.id*10+3} position={[x+0.9,0.875,z+1.9]}>
+                  <mesh receiveShadow castShadow key={f.id*10+3} position={[x+x_len/2-0.1,0.875,z+z_len/2-0.1]}>
                     <boxGeometry args={[0.1,1.75,0.1]} />
                     <meshPhongMaterial color={new THREE.Color(color)} />
                   </mesh>
                 );
                 element.push(
-                  <mesh receiveShadow castShadow key={f.id*10+4} position={[x-0.9,0.875,z-1.9]}>
+                  <mesh receiveShadow castShadow key={f.id*10+4} position={[x-x_len/2+0.1,0.875,z-z_len/2+0.1]}>
                     <boxGeometry args={[0.1,1.75,0.1]} />
                     <meshPhongMaterial color={new THREE.Color(color)} />
                   </mesh>
