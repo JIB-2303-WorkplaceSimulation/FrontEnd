@@ -53,7 +53,7 @@ export default function SimList(){
   const checkID = (inp) => {
     return (
       <div>
-        <p className="center">The Simulation ID input is {inp}</p>
+        <p className="center">The Simulation ID input is <span style={{ fontWeight: 'bold' }}>{inp}</span></p>
         <p className="center">This data is from our Directus database</p>
         <p className="center">All rooms in this simulation instance:</p>
         <table className="center">
