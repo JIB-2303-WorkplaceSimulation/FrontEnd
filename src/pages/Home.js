@@ -26,7 +26,7 @@ function Home(){
       <div className="center">
         <div className="box">
           <h1 style={{ color: '#404BE3', fontSize: '36px' }}>Login</h1>
-          <p><input onChange={handleChange} onKeyDown={handleKey} value={input} placeholder="Enter Simulation ID Here"/></p>
+          <p><input onChange={handleChange} onKeyDown={handleKey} value={input} placeholder="Enter Simulation ID Here:"/></p>
           <p><button onClick={handleClick}>Submit</button></p>
         </div>
       </div>
