@@ -51,7 +51,7 @@ function SimVis() {
         <OrbitControls enableDamping maxPolarAngle={Math.PI/2} />
         <ambientLight intensity={0.1} />
         <ambientLight color={ 0xffffff } position={[0, 10, 5]} />
-        <group ref={groupRef}>
+        <group position={[0,-5,-8]} ref={groupRef}>
           {rooms
             .filter((room) => room.sim_id === id)
             .map((room) => {
@@ -74,86 +74,83 @@ function SimVis() {
             .map((f) => {
               const x = f.x_coord;
               const z = f.z_coord;
+              var rotation = Math.PI/2;
+              if (f.face_direction === "North") {
+                rotation *= 0;
+              } else if (f.face_direction === "West") {
+                rotation *= 1;
+              } else if (f.face_direction === "South") {
+                rotation *= 2;
+              } else if (f.face_direction === "East") {
+                rotation *= 3;
+              } 
               var color = 0x0;
               var element = [];
               if (f.type === "Chair") {
                 color = 0xF28C28;
                 element.push(
-                  <mesh receiveShadow castShadow key={f.id*10} position={[x,1,z]}>
-                    <boxGeometry args={[1,0.1,1]} />
-                    <meshPhongMaterial color={new THREE.Color(color)} />
-                  </mesh>
-                );
-                element.push(
-                  <mesh receiveShadow castShadow key={f.id*10+1} position={[x+0.4,0.5,z-0.4]}>
-                    <boxGeometry args={[0.1,1,0.1]} />
-                    <meshPhongMaterial color={new THREE.Color(color)} />
-                  </mesh>
-                );
-                element.push(
-                  <mesh receiveShadow castShadow key={f.id*10+2} position={[x-0.4,0.5,z-0.4]}>
-                    <boxGeometry args={[0.1,1,0.1]} />
-                    <meshPhongMaterial color={new THREE.Color(color)} />
-                  </mesh>
-                );
-                element.push(
-                  <mesh receiveShadow castShadow key={f.id*10+3} position={[x+0.4,0.5,z+0.4]}>
-                    <boxGeometry args={[0.1,1,0.1]} />
-                    <meshPhongMaterial color={new THREE.Color(color)} />
-                  </mesh>
-                );
-                element.push(
-                  <mesh receiveShadow castShadow key={f.id*10+4} position={[x-0.4,0.5,z+0.4]}>
-                    <boxGeometry args={[0.1,1,0.1]} />
-                    <meshPhongMaterial color={new THREE.Color(color)} />
-                  </mesh>
-                );
-                element.push(
-                  <mesh receiveShadow castShadow key={f.id*10+5} position={[x-0.4,1.75,z]}>
-                    <boxGeometry args={[0.1,1.5,1]} />
-                    <meshPhongMaterial color={new THREE.Color(color)} />
-                  </mesh>
-                );
+                  <group key={f.id*10} position={[x,0,z]} rotation={[0, rotation, 0]}>
+                    <mesh receiveShadow castShadow key={f.id*10} position={[0,1,0]}>
+                      <boxGeometry args={[1,0.1,1]} />
+                      <meshPhongMaterial color={new THREE.Color(color)} />
+                    </mesh>
+                    <mesh receiveShadow castShadow key={f.id*10+1} position={[0.4,0.5,-0.4]}>
+                      <boxGeometry args={[0.1,1,0.1]} />
+                      <meshPhongMaterial color={new THREE.Color(color)} />
+                    </mesh>
+                    <mesh receiveShadow castShadow key={f.id*10+2} position={[-0.4,0.5,-0.4]}>
+                      <boxGeometry args={[0.1,1,0.1]} />
+                      <meshPhongMaterial color={new THREE.Color(color)} />
+                    </mesh>
+                    <mesh receiveShadow castShadow key={f.id*10+3} position={[0.4,0.5,0.4]}>
+                      <boxGeometry args={[0.1,1,0.1]} />
+                      <meshPhongMaterial color={new THREE.Color(color)} />
+                    </mesh>
+                    <mesh receiveShadow castShadow key={f.id*10+4} position={[-0.4,0.5,0.4]}>
+                      <boxGeometry args={[0.1,1,0.1]} />
+                      <meshPhongMaterial color={new THREE.Color(color)} />
+                    </mesh>
+                    <mesh receiveShadow castShadow key={f.id*10+5} position={[-0.4,1.75,0]}>
+                      <boxGeometry args={[0.1,1.5,1]} />
+                      <meshPhongMaterial color={new THREE.Color(color)} />
+                    </mesh>
+                  </group>
+                )
               } else if (f.type === "Table") {
                 color = 0x468468;
                 var x_len = f.x_length;
                 var z_len = f.z_length;
                 element.push(
-                  <mesh receiveShadow castShadow key={f.id*10} position={[x,1.75,z]}>
-                    <boxGeometry args={[x_len,0.1,z_len]} />
-                    <meshPhongMaterial color={new THREE.Color(color)} />
-                  </mesh>
-                );
-                element.push(
-                  <mesh receiveShadow castShadow key={f.id*10+1} position={[x+x_len/2-0.1,0.875,z-z_len/2+0.1]}>
-                    <boxGeometry args={[0.1,1.75,0.1]} />
-                    <meshPhongMaterial color={new THREE.Color(color)} />
-                  </mesh>
-                );
-                element.push(
-                  <mesh receiveShadow castShadow key={f.id*10+2} position={[x-x_len/2+0.1,0.875,z+z_len/2-0.1]}>
-                    <boxGeometry args={[0.1,1.75,0.1]} />
-                    <meshPhongMaterial color={new THREE.Color(color)} />
-                  </mesh>
-                );
-                element.push(
-                  <mesh receiveShadow castShadow key={f.id*10+3} position={[x+x_len/2-0.1,0.875,z+z_len/2-0.1]}>
-                    <boxGeometry args={[0.1,1.75,0.1]} />
-                    <meshPhongMaterial color={new THREE.Color(color)} />
-                  </mesh>
-                );
-                element.push(
-                  <mesh receiveShadow castShadow key={f.id*10+4} position={[x-x_len/2+0.1,0.875,z-z_len/2+0.1]}>
-                    <boxGeometry args={[0.1,1.75,0.1]} />
-                    <meshPhongMaterial color={new THREE.Color(color)} />
-                  </mesh>
-                );
+                  <group key={f.id*10} position={[x,0,z]} rotation={[0, rotation, 0]}>
+                  <mesh receiveShadow castShadow key={f.id*10} position={[0,1.75,0]}>
+                      <boxGeometry args={[x_len,0.1,z_len]} />
+                      <meshPhongMaterial color={new THREE.Color(color)} />
+                    </mesh>
+                    <mesh receiveShadow castShadow key={f.id*10+1} position={[x_len/2-0.1,0.875,z_len/2-0.1]}>
+                      <boxGeometry args={[0.1,1.75,0.1]} />
+                      <meshPhongMaterial color={new THREE.Color(color)} />
+                    </mesh>
+                    <mesh receiveShadow castShadow key={f.id*10+2} position={[-x_len/2+0.1,0.875,z_len/2-0.1]}>
+                      <boxGeometry args={[0.1,1.75,0.1]} />
+                      <meshPhongMaterial color={new THREE.Color(color)} />
+                    </mesh>
+                    <mesh receiveShadow castShadow key={f.id*10+3} position={[x_len/2-0.1,0.875,-z_len/2+0.1]}>
+                      <boxGeometry args={[0.1,1.75,0.1]} />
+                      <meshPhongMaterial color={new THREE.Color(color)} />
+                    </mesh>
+                    <mesh receiveShadow castShadow key={f.id*10+4} position={[-x_len/2+0.1,0.875,-z_len/2+0.1]}>
+                      <boxGeometry args={[0.1,1.75,0.1]} />
+                      <meshPhongMaterial color={new THREE.Color(color)} />
+                    </mesh>
+                  </group>
+                )
               }
               return element;
             })
           }
         </group>
-        <PerspectiveCamera near={0.1} far={1000} position={[0, 0, 5]} lookAt={groupRef.current ? groupRef.current.position : [0, 0, 0]} />
+        
+        <PerspectiveCamera near={0.1} far={1000} position={[0, 0, 0]}  />
       </Canvas>
     </div>
   );
