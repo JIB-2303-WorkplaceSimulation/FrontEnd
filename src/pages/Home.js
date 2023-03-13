@@ -26,7 +26,7 @@ function Home(){
       <h2 className="center">Please Login</h2>
       <div className="center">
         <div className="box">
-          <h1 style={{ color: 'black', fontSize: '28px' }}>Enter your Simulation ID to proceed</h1>
+        <h1 style={{ color: '#404BE3', fontSize: '36px' }}>Login</h1>
           <p><input onChange={handleChange} onKeyDown={handleKey} value={input} placeholder="Enter Simulation ID Here:"/></p>
           <p><button onClick={handleClick}>Submit</button></p>
           <p>(Only simulation ID 10 works at this time - entering other IDs will take us to a page with empty tables)</p>
