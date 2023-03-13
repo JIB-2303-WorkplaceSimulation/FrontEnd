@@ -10,6 +10,8 @@ function SimVis() {
   const [furniture, setFurniture] = useState([]);
   const [furnitureIds, setFurnitureIds] = useState([]);
   const id = parseInt(window.location.pathname.substring(8));
+  const [workerPosition, setWorkerPosition] = useState([0,0,0]);
+  const [workerSpeed, setWorkerSpeed] = useState([1,1]);
 
 
   useEffect(() => {
@@ -43,13 +45,18 @@ function SimVis() {
     });
     setFurnitureIds(newFurnitureIds);
   }, [rooms, id]);
+
   return (
     <div style={{ width: '100%', height: '100vh' }}>
       <Canvas>
         <OrbitControls enableDamping maxPolarAngle={Math.PI/2} />
         <ambientLight intensity={0.1} />
         <ambientLight color={ 0xffffff } position={[0, 10, 5]} />
-        <group position={[0,-5,-8]} ref={groupRef}>
+        <mesh receiveShadow castShadow position={[workerPosition[0],workerPosition[1],workerPosition[2]]}>
+          <boxGeometry args={[0.5,0.5,0.5]} />
+          <meshPhongMaterial color={new THREE.Color(0xFFFFFF)} />
+        </mesh>
+        <group position={[0,0,0]} ref={groupRef}>
           {rooms
             .filter((room) => room.sim_id === id)
             .map((room) => {
