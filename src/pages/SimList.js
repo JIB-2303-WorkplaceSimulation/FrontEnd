@@ -1,6 +1,5 @@
 import {React, useState, useEffect} from 'react';
 import {Link, useParams, useNavigate} from 'react-router-dom';
-// import dummy_data from './dummy_data.json';
 import axios from 'axios';
 
 
@@ -11,6 +10,7 @@ export default function SimList(){
   const navigate = useNavigate();
   const [rooms, setRooms] = useState([]);
   const [furniture, setFurniture] = useState([]);
+  const [workers, setWorkers] = useState([]);
   var furniture_ids = [];
   const handleClick = () => {
     navigate("../simvis/"+id);
@@ -40,6 +40,18 @@ export default function SimList(){
         console.log(err);
     });
   }, [], furniture);
+
+  useEffect(() => {
+    //Runs on the first render
+    //And any time any dependency value changes
+    axios.get("https://jsv2r3kn.directus.app/items/Worker").then
+  ((result) => {
+     setWorkers(result.data.data);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+  }, [], workers);
 
   rooms.filter(obj => obj.sim_id === id).forEach(
     (info)=>{
@@ -89,6 +101,9 @@ export default function SimList(){
       </div>
     ); 
   }
+
+    //Displaying the furniture data in table format with JS map function.
+
   const DisplayFurnitureData = furniture.filter(obj => furniture_ids.includes(obj.id)).map(
     (info)=>{
         return(
@@ -101,6 +116,9 @@ export default function SimList(){
         )
     }
   )
+
+  //Displaying the room data in table format with JS map function.
+
   const DisplayRoomData = rooms.filter(obj => obj.sim_id === id).map(
     (info)=>{
         return(
@@ -114,6 +132,7 @@ export default function SimList(){
         )
     }
   )
+
   return (
     <div>
       {checkID(id)}
