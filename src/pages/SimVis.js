@@ -14,6 +14,7 @@ function SimVis() {
   const id = parseInt(window.location.pathname.substring(8));
   const [workerPosition, setWorkerPosition] = useState([0,0.5,1]);
   const [workerSpeed, setWorkerSpeed] = useState([.5,.5]);
+  const [simultionSpeed, setSimulationSpeed] = useState(10);
   var minX = 1000;
   var minZ = 1000;
   var maxX = -1000;
@@ -58,10 +59,24 @@ function SimVis() {
     maxZ = Math.max(maxZ, element.Corner1_zcoord, element.Corner2_zcoord);
   });
 
+  const increaseSpeed = () => {
+    if (simultionSpeed > 1) {
+      setSimulationSpeed(simultionSpeed - 1)
+    }
+  }
+  const decreaseSpeed = () => {
+    setSimulationSpeed(simultionSpeed + 1)
+  }
   return (
     <div style={{ width: '100%', height: '100vh' }}>
+      <button onClick={increaseSpeed}>
+        Inc. Speed
+      </button>
+      <button onClick={decreaseSpeed}>
+        Dec. Speed
+      </button>
       <Canvas>
-        <Worker maxX = {maxX} maxZ = {maxZ} minX = {minX} minZ = {minZ} initialPos = {workerPosition} speed = {workerSpeed}/>
+        <Worker maxX = {maxX} maxZ = {maxZ} minX = {minX} minZ = {minZ} initialPos = {workerPosition} speed = {workerSpeed} simulationSpeed = {simultionSpeed}/>
         <OrbitControls enableDamping maxPolarAngle={Math.PI/2} />
         <ambientLight intensity={0.1} />
         <ambientLight color={ 0xffffff } position={[0, 10, 5]} />

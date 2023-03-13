@@ -6,11 +6,12 @@ export default function Worker(props) {
   // Create a reference to the cube object
     const cubeRef = useRef();
     var frame = 0
+    var frameLimit = props.simulationSpeed
 
   // Define the animation function
   useFrame((state, delta) => {
     frame += 1;
-    frame = frame % 10;
+    frame = frame % frameLimit;
     if (frame != 0){
         return;
     }
