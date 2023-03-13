@@ -3,7 +3,7 @@ import { Canvas } from 'react-three-fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
 import axios from 'axios';
-
+import Worker from '../objects/worker.js';
 
 
 function SimVis() {
@@ -13,13 +13,11 @@ function SimVis() {
   const [furnitureIds, setFurnitureIds] = useState([]);
   const id = parseInt(window.location.pathname.substring(8));
   const [workerPosition, setWorkerPosition] = useState([0,0.5,1]);
-  const [workerSpeed, setWorkerSpeed] = useState([1,1]);
-  var minX,minZ = Infinity;
-  var maxX,maxZ = -Infinity;
-  function move(){
-    var possibleXMovement = [0];
-    var possibleZMovement = [0];
-  }
+  const [workerSpeed, setWorkerSpeed] = useState([.5,.5]);
+  var minX = 1000;
+  var minZ = 1000;
+  var maxX = -1000;
+  var maxZ = -1000;
 
   useEffect(() => {
     axios
@@ -63,15 +61,10 @@ function SimVis() {
   return (
     <div style={{ width: '100%', height: '100vh' }}>
       <Canvas>
+        <Worker maxX = {maxX} maxZ = {maxZ} minX = {minX} minZ = {minZ} initialPos = {workerPosition} speed = {workerSpeed}/>
         <OrbitControls enableDamping maxPolarAngle={Math.PI/2} />
         <ambientLight intensity={0.1} />
         <ambientLight color={ 0xffffff } position={[0, 10, 5]} />
-        {/* worker instantiation */}
-        <mesh receiveShadow castShadow position={[workerPosition[0],workerPosition[1],workerPosition[2]]}>
-          <boxGeometry args={[0.5,0.5,0.5]} />
-          <meshPhongMaterial color={new THREE.Color(0xFFFFFF)} />
-        </mesh>
-        
         <group position={[0,0,0]} ref={groupRef}>
           {rooms
             .filter((room) => room.sim_id === id)
