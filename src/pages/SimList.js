@@ -1,6 +1,5 @@
 import {React, useState, useEffect} from 'react';
 import {Link, useParams, useNavigate} from 'react-router-dom';
-// import dummy_data from './dummy_data.json';
 import axios from 'axios';
 
 
