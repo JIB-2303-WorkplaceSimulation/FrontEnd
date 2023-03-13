@@ -4,15 +4,22 @@ import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
 import axios from 'axios';
 
+
+
 function SimVis() {
   const groupRef = useRef();
   const [rooms, setRooms] = useState([]);
   const [furniture, setFurniture] = useState([]);
   const [furnitureIds, setFurnitureIds] = useState([]);
   const id = parseInt(window.location.pathname.substring(8));
-  const [workerPosition, setWorkerPosition] = useState([0,0,0]);
+  const [workerPosition, setWorkerPosition] = useState([0,0.5,1]);
   const [workerSpeed, setWorkerSpeed] = useState([1,1]);
-
+  var minX,minZ = Infinity;
+  var maxX,maxZ = -Infinity;
+  function move(){
+    var possibleXMovement = [0];
+    var possibleZMovement = [0];
+  }
 
   useEffect(() => {
     axios
@@ -45,6 +52,13 @@ function SimVis() {
     });
     setFurnitureIds(newFurnitureIds);
   }, [rooms, id]);
+  
+  rooms.forEach(element => {
+    minX = Math.min(minX, element.Corner1_xcoord, element.Corner2_xcoord);
+    minZ = Math.min(minZ, element.Corner1_zcoord, element.Corner2_zcoord);
+    maxX = Math.max(maxX, element.Corner1_xcoord, element.Corner2_xcoord);
+    maxZ = Math.max(maxZ, element.Corner1_zcoord, element.Corner2_zcoord);
+  });
 
   return (
     <div style={{ width: '100%', height: '100vh' }}>
@@ -52,10 +66,12 @@ function SimVis() {
         <OrbitControls enableDamping maxPolarAngle={Math.PI/2} />
         <ambientLight intensity={0.1} />
         <ambientLight color={ 0xffffff } position={[0, 10, 5]} />
+        {/* worker instantiation */}
         <mesh receiveShadow castShadow position={[workerPosition[0],workerPosition[1],workerPosition[2]]}>
           <boxGeometry args={[0.5,0.5,0.5]} />
           <meshPhongMaterial color={new THREE.Color(0xFFFFFF)} />
         </mesh>
+        
         <group position={[0,0,0]} ref={groupRef}>
           {rooms
             .filter((room) => room.sim_id === id)
