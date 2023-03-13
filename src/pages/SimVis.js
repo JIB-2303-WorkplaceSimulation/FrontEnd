@@ -62,7 +62,7 @@ function SimVis() {
               return (
                 <mesh receiveShadow castShadow key={room.id*10} position={[a,0,b]}>
                   <boxGeometry args={[x,y,z]} />
-                  <meshPhongMaterial color={new THREE.Color(0x800080)} />
+                  <meshPhongMaterial color={new THREE.Color(0x426cf5)} />
                 </mesh>
               );
             })
