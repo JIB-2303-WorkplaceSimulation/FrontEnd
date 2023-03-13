@@ -6,7 +6,6 @@ import axios from 'axios';
 
 function SimVis() {
   const groupRef = useRef();
-  //const canvasRef = useRef();
   const [rooms, setRooms] = useState([]);
   const [furniture, setFurniture] = useState([]);
   const [furnitureIds, setFurnitureIds] = useState([]);
