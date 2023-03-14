@@ -1,18 +1,24 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
-//import { Vector3, Group } from 'three';
 import * as THREE from 'three';
 import axios from 'axios';
+import Worker from '../objects/worker.js';
+
 
 function SimVis() {
   const groupRef = useRef();
-  //const canvasRef = useRef();
   const [rooms, setRooms] = useState([]);
   const [furniture, setFurniture] = useState([]);
   const [furnitureIds, setFurnitureIds] = useState([]);
   const id = parseInt(window.location.pathname.substring(8));
-
+  const [workerPosition, setWorkerPosition] = useState([0,0.5,1]);
+  const [workerSpeed, setWorkerSpeed] = useState([.5,.5]);
+  const [simultionSpeed, setSimulationSpeed] = useState(10);
+  var minX = 1000;
+  var minZ = 1000;
+  var maxX = -1000;
+  var maxZ = -1000;
 
   useEffect(() => {
     axios
@@ -45,13 +51,37 @@ function SimVis() {
     });
     setFurnitureIds(newFurnitureIds);
   }, [rooms, id]);
+  
+  rooms.forEach(element => {
+    minX = Math.min(minX, element.Corner1_xcoord, element.Corner2_xcoord);
+    minZ = Math.min(minZ, element.Corner1_zcoord, element.Corner2_zcoord);
+    maxX = Math.max(maxX, element.Corner1_xcoord, element.Corner2_xcoord);
+    maxZ = Math.max(maxZ, element.Corner1_zcoord, element.Corner2_zcoord);
+  });
+
+  const increaseSpeed = () => {
+    if (simultionSpeed > 1) {
+      setSimulationSpeed(simultionSpeed - 1)
+    }
+  }
+  const decreaseSpeed = () => {
+    setSimulationSpeed(simultionSpeed + 1)
+  }
   return (
     <div style={{ width: '100%', height: '100vh' }}>
+      <button onClick={increaseSpeed}>
+        Inc. Speed
+      </button>
+      <button onClick={decreaseSpeed}>
+        Dec. Speed
+      </button>
       <Canvas>
+        <Worker maxX = {maxX} maxZ = {maxZ} minX = {minX} minZ = {minZ} initialPos = {workerPosition} speed = {workerSpeed} simulationSpeed = {simultionSpeed}/>
         <OrbitControls enableDamping maxPolarAngle={Math.PI/2} />
         <ambientLight intensity={0.1} />
         <ambientLight color={ 0xffffff } position={[0, 10, 5]} />
-        <group ref={groupRef}>
+        <group position={[0,0,0]} ref={groupRef}>
+
           {rooms
             .filter((room) => room.sim_id === id)
             .map((room) => {
@@ -60,11 +90,11 @@ function SimVis() {
               const z = Math.abs(room.Corner1_zcoord - room.Corner2_zcoord);
               const a = (room.Corner2_xcoord + room.Corner1_xcoord) / 2;
               const b = (room.Corner2_zcoord + room.Corner1_zcoord) / 2;
-              var color = 0x800080
+              var randomColor = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
               return (
                 <mesh receiveShadow castShadow key={room.id*10} position={[a,0,b]}>
                   <boxGeometry args={[x,y,z]} />
-                  <meshPhongMaterial color={new THREE.Color(color)} />
+                  <meshPhongMaterial color={new THREE.Color(0x426cf5)} />
                 </mesh>
               );
             })
