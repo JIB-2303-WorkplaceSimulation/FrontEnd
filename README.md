@@ -3,6 +3,27 @@
 A web-based 3D Simulator designed to help workplaces more efficiently manage their employees and resources.
 
 # Release Notes
+## Version 0.3.0
+
+### Features
+
+- Import/Export Functionality added to directus database
+- Data is vizualized in 3d space with floors defining the space
+- Furniture and workers are also visualized in the space
+- User can move within the 3d space their simulation will run in
+- Workers move around autonomously as they are run by simulation algorithm (more sophisticated algorithm will be made in a later update)
+- Simulation can be sped up, slowed down, paused, and played
+- Colors and style has been updated to look like Figma prototype
+- Directus database has been updated to contain data consistent with ERD
+
+### Bug Fixes
+
+- NULL or incorrectly formatted simulation IDs will now result in a popup error
+
+### Known Issues
+
+- Simulation algorithm needs to be developed fully
+- Worker needs to be bounded by floors and shouldn't move through furniture
 
 ## Version 0.2.0
 
