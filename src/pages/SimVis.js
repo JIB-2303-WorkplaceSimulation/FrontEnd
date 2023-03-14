@@ -81,6 +81,7 @@ function SimVis() {
         <ambientLight intensity={0.1} />
         <ambientLight color={ 0xffffff } position={[0, 10, 5]} />
         <group position={[0,0,0]} ref={groupRef}>
+
           {rooms
             .filter((room) => room.sim_id === id)
             .map((room) => {
@@ -179,7 +180,7 @@ function SimVis() {
           }
         </group>
         
-        <PerspectiveCamera near={0.1} far={1000} position={[0, 0, 0]}  />
+        <PerspectiveCamera near={0.1} far={1000} position={[0, 0, 0]} lookAt={groupRef.current ? groupRef.current.position : [0, 0, 0]} />
       </Canvas>
     </div>
   );
