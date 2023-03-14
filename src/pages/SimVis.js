@@ -15,6 +15,7 @@ function SimVis() {
   const [workerPosition, setWorkerPosition] = useState([0,0.5,1]);
   const [workerSpeed, setWorkerSpeed] = useState([.5,.5]);
   const [simultionSpeed, setSimulationSpeed] = useState(10);
+  const tempSimulationSpeed = 0
   var minX = 1000;
   var minZ = 1000;
   var maxX = -1000;
@@ -67,6 +68,12 @@ function SimVis() {
   const decreaseSpeed = () => {
     setSimulationSpeed(simultionSpeed + 1)
   }
+  const pause = () => {
+    setSimulationSpeed(0)
+  }
+  const play = () => {
+    setSimulationSpeed(10)
+  }
   return (
     <div style={{ width: '100%', height: '100vh' }}>
       <button onClick={increaseSpeed}>
@@ -74,6 +81,12 @@ function SimVis() {
       </button>
       <button onClick={decreaseSpeed}>
         Dec. Speed
+      </button>
+      <button onClick={play}>
+        Play
+      </button>
+      <button onClick={pause}>
+        Pause
       </button>
       <Canvas>
         <Worker maxX = {maxX} maxZ = {maxZ} minX = {minX} minZ = {minZ} initialPos = {workerPosition} speed = {workerSpeed} simulationSpeed = {simultionSpeed}/>
