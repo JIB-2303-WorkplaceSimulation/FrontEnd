@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
-import * as THREE from 'three';
+// import * as THREE from 'three';
 import axios from 'axios';
 import Worker from '../objects/worker.js';
 import Furniture from '../objects/furniture.js';
@@ -14,15 +14,15 @@ function SimVis() {
   const [furniture, setFurniture] = useState([]);
   const [furnitureIds, setFurnitureIds] = useState([]);
   const id = parseInt(window.location.pathname.substring(8));
-  const [workerPosition, setWorkerPosition] = useState([0,0.5,1]);
-  const [workerSpeed, setWorkerSpeed] = useState([.5,.5]);
-  const [simultionSpeed, setSimulationSpeed] = useState(10);
-  const [storedSimultionSpeed, setStoredSimulationSpeed] = useState(10);
+  const [workerPosition, ] = useState([0,0.5,1]);
+  const [workerSpeed, ] = useState([.5,.5]);
+  const [simulationSpeed, setSimulationSpeed] = useState(10);
+  const [storedsimulationSpeed, setStoredSimulationSpeed] = useState(10);
   var minX = 1000;
   var minZ = 1000;
   var maxX = -1000;
   var maxZ = -1000;
-  console.log(simultionSpeed)
+  // console.log(simulationSpeed)
 
   useEffect(() => {
     axios
@@ -64,19 +64,19 @@ function SimVis() {
   });
 
   const increaseSpeed = () => {
-    if (simultionSpeed > 1) {
-      setSimulationSpeed(simultionSpeed - 1)
+    if (simulationSpeed > 1) {
+      setSimulationSpeed(simulationSpeed - 1)
     }
   }
   const decreaseSpeed = () => {
-    setSimulationSpeed(simultionSpeed + 1)
+    setSimulationSpeed(simulationSpeed + 1)
   }
   const pause = () => {
-    setStoredSimulationSpeed(simultionSpeed)
+    setStoredSimulationSpeed(simulationSpeed)
     setSimulationSpeed(0)
   }
   const play = () => {
-    setSimulationSpeed(storedSimultionSpeed)
+    setSimulationSpeed(storedsimulationSpeed)
   }
   return (
     <div style={{ width: '100%', height: '100vh' }}>
@@ -93,20 +93,20 @@ function SimVis() {
         Pause
       </button>
       <Canvas>
-        <Worker maxX = {maxX} maxZ = {maxZ} minX = {minX} minZ = {minZ} initialPos = {workerPosition} speed = {workerSpeed} simulationSpeed = {simultionSpeed} rooms = {rooms}/>
+        <Worker maxX = {maxX} maxZ = {maxZ} minX = {minX} minZ = {minZ} initialPos = {workerPosition} speed = {workerSpeed} simulationSpeed = {simulationSpeed} rooms = {rooms}/>
         <OrbitControls enableDamping maxPolarAngle={Math.PI/2} />
         <ambientLight intensity={0.1} />
         <ambientLight color={ 0xffffff } position={[0, 10, 5]} />
         {rooms
           .filter((room) => room.sim_id === id)
           .map((room) => {
-            return <Room room = {room}/>
+            return <Room key={room.id} room = {room}/>
           })
         }
         {furniture
           .filter((f) => furnitureIds.includes(f.id))
           .map((f) => {
-            return <Furniture f = {f}/>
+            return <Furniture key={f.id} f = {f}/>
           })
         }
         <PerspectiveCamera near={0.1} far={1000} position={[0, 0, 0]} lookAt={groupRef.current ? groupRef.current.position : [0, 0, 0]} />
