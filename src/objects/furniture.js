@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import React from "react";
+// import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 export default function Furniture(props) {
@@ -21,27 +21,27 @@ export default function Furniture(props) {
     color = 0xF28C28;
     return (
       <group key={f.id*10} position={[x,0,z]} rotation={[0, rotation, 0]}>
-        <mesh receiveShadow castShadow key={f.id*10} position={[0,1,0]}>
+        <mesh receiveShadow castShadow key={f.id*10+1} position={[0,1,0]}>
           <boxGeometry args={[1,0.1,1]} />
           <meshPhongMaterial color={new THREE.Color(color)} />
         </mesh>
-        <mesh receiveShadow castShadow key={f.id*10+1} position={[0.4,0.5,-0.4]}>
+        <mesh receiveShadow castShadow key={f.id*10+2} position={[0.4,0.5,-0.4]}>
           <boxGeometry args={[0.1,1,0.1]} />
           <meshPhongMaterial color={new THREE.Color(color)} />
         </mesh>
-        <mesh receiveShadow castShadow key={f.id*10+2} position={[-0.4,0.5,-0.4]}>
+        <mesh receiveShadow castShadow key={f.id*10+3} position={[-0.4,0.5,-0.4]}>
           <boxGeometry args={[0.1,1,0.1]} />
           <meshPhongMaterial color={new THREE.Color(color)} />
         </mesh>
-        <mesh receiveShadow castShadow key={f.id*10+3} position={[0.4,0.5,0.4]}>
+        <mesh receiveShadow castShadow key={f.id*10+4} position={[0.4,0.5,0.4]}>
           <boxGeometry args={[0.1,1,0.1]} />
           <meshPhongMaterial color={new THREE.Color(color)} />
         </mesh>
-        <mesh receiveShadow castShadow key={f.id*10+4} position={[-0.4,0.5,0.4]}>
+        <mesh receiveShadow castShadow key={f.id*10+5} position={[-0.4,0.5,0.4]}>
           <boxGeometry args={[0.1,1,0.1]} />
           <meshPhongMaterial color={new THREE.Color(color)} />
         </mesh>
-        <mesh receiveShadow castShadow key={f.id*10+5} position={[-0.4,1.75,0]}>
+        <mesh receiveShadow castShadow key={f.id*10+6} position={[-0.4,1.75,0]}>
           <boxGeometry args={[0.1,1.5,1]} />
           <meshPhongMaterial color={new THREE.Color(color)} />
         </mesh>
@@ -53,23 +53,23 @@ export default function Furniture(props) {
     var z_len = f.z_length;
     return (
       <group key={f.id*10} position={[x,0,z]} rotation={[0, rotation, 0]}>
-      <mesh receiveShadow castShadow key={f.id*10} position={[0,1.75,0]}>
+      <mesh receiveShadow castShadow key={f.id*10+1} position={[0,1.75,0]}>
           <boxGeometry args={[x_len,0.1,z_len]} />
           <meshPhongMaterial color={new THREE.Color(color)} />
         </mesh>
-        <mesh receiveShadow castShadow key={f.id*10+1} position={[x_len/2-0.1,0.875,z_len/2-0.1]}>
+        <mesh receiveShadow castShadow key={f.id*10+2} position={[x_len/2-0.1,0.875,z_len/2-0.1]}>
           <boxGeometry args={[0.1,1.75,0.1]} />
           <meshPhongMaterial color={new THREE.Color(color)} />
         </mesh>
-        <mesh receiveShadow castShadow key={f.id*10+2} position={[-x_len/2+0.1,0.875,z_len/2-0.1]}>
+        <mesh receiveShadow castShadow key={f.id*10+3} position={[-x_len/2+0.1,0.875,z_len/2-0.1]}>
           <boxGeometry args={[0.1,1.75,0.1]} />
           <meshPhongMaterial color={new THREE.Color(color)} />
         </mesh>
-        <mesh receiveShadow castShadow key={f.id*10+3} position={[x_len/2-0.1,0.875,-z_len/2+0.1]}>
+        <mesh receiveShadow castShadow key={f.id*10+4} position={[x_len/2-0.1,0.875,-z_len/2+0.1]}>
           <boxGeometry args={[0.1,1.75,0.1]} />
           <meshPhongMaterial color={new THREE.Color(color)} />
         </mesh>
-        <mesh receiveShadow castShadow key={f.id*10+4} position={[-x_len/2+0.1,0.875,-z_len/2+0.1]}>
+        <mesh receiveShadow castShadow key={f.id*10+5} position={[-x_len/2+0.1,0.875,-z_len/2+0.1]}>
           <boxGeometry args={[0.1,1.75,0.1]} />
           <meshPhongMaterial color={new THREE.Color(color)} />
         </mesh>
