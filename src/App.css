@@ -75,6 +75,13 @@ td {
   border-radius: 30px; /* Round the corners */
 }
 
+.selector{
+  width: 170px;
+  height: calc(100vh - 140px);
+  background-color: #404BE3;
+  border-radius: 20px; /* Round the corners */
+}
+
 .link {
   color: #404BE3;
 }
