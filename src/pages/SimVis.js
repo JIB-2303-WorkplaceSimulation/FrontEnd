@@ -6,6 +6,7 @@ import axios from 'axios';
 import Worker from '../objects/worker.js';
 import Furniture from '../objects/furniture.js';
 import Room from '../objects/room.js';
+import table from '../images/Table.png'
 
 
 function SimVis() {
@@ -79,39 +80,41 @@ function SimVis() {
     setSimulationSpeed(storedsimulationSpeed)
   }
   return (
-    <div style={{ width: '100%', height: '100vh' }}>
-      <button onClick={increaseSpeed}>
-        Inc. Speed
-      </button>
-      <button onClick={decreaseSpeed}>
-        Dec. Speed
-      </button>
-      <button onClick={play}>
-        Play
-      </button>
-      <button onClick={pause}>
-        Pause
-      </button>
-      <Canvas>
-        <Worker maxX = {maxX} maxZ = {maxZ} minX = {minX} minZ = {minZ} initialPos = {workerPosition} speed = {workerSpeed} simulationSpeed = {simulationSpeed} rooms = {rooms}/>
-        <OrbitControls enableDamping maxPolarAngle={Math.PI/2} />
-        <ambientLight intensity={0.1} />
-        <ambientLight color={ 0xffffff } position={[0, 10, 5]} />
-        {rooms
-          .filter((room) => room.sim_id === id)
-          .map((room) => {
-            return <Room key={room.id} room = {room}/>
-          })
-        }
-        {furniture
-          .filter((f) => furnitureIds.includes(f.id))
-          .map((f) => {
-            return <Furniture key={f.id} f = {f}/>
-          })
-        }
-        <PerspectiveCamera near={0.1} far={1000} position={[0, 0, 0]} lookAt={groupRef.current ? groupRef.current.position : [0, 0, 0]} />
-      </Canvas>
+    <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
+    <Canvas style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+      <Worker maxX = {maxX} maxZ = {maxZ} minX = {minX} minZ = {minZ} initialPos = {workerPosition} speed = {workerSpeed} simulationSpeed = {simulationSpeed} rooms = {rooms}/>
+      <OrbitControls enableDamping maxPolarAngle={Math.PI/2} />
+      <ambientLight intensity={0.1} />
+      <ambientLight color={ 0xffffff } position={[0, 10, 5]} />
+      {rooms
+        .filter((room) => room.sim_id === id)
+        .map((room) => {
+          return <Room key={room.id} room = {room}/>
+        })
+      }
+      {furniture
+        .filter((f) => furnitureIds.includes(f.id))
+        .map((f) => {
+          return <Furniture key={f.id} f = {f}/>
+        })
+      }
+      <PerspectiveCamera near={0.1} far={1000} position={[0, 0, 0]} lookAt={groupRef.current ? groupRef.current.position : [0, 0, 0]} />
+    </Canvas>
+    <div style={{ display: 'flex', flexDirection: 'column', position: 'absolute', top: 10, left: 10, zIndex: 1 }}>
+      <button onClick={increaseSpeed} style={{marginBottom: '10px'}}> Inc. Speed </button>
+      <button onClick={decreaseSpeed}> Dec. Speed </button>
     </div>
+    <div style={{ display: 'flex', flexDirection: 'column', position: 'absolute', top: 10, left: 120, zIndex: 1 }}>
+      <button onClick={play} style={{marginBottom: '10px', width: '60px'}}> Play </button>
+      <button onClick={pause} style={{width: '60px'}}> Pause </button>
+    </div>
+    <div className="selector" style={{position: 'absolute', top: 90, left: 10}}>
+    <button style={{ marginTop: '15px', marginLeft: '25px', width: '120px', height: '20%'}}> <img style={{height: '100%', alignContent: 'center'}} src={table} alt="my image" onClick={pause}/> </button>
+    <button style={{ marginTop: '15px', marginLeft: '25px', width: '120px', height: '20%'}}> <img style={{height: '100%', alignContent: 'center'}} src={table} alt="my image" onClick={pause}/> </button>
+    <button style={{ marginTop: '15px', marginLeft: '25px', width: '120px', height: '20%'}}> <img style={{height: '100%', alignContent: 'center'}} src={table} alt="my image" onClick={pause}/> </button>
+    <button style={{ marginTop: '15px', marginLeft: '25px', width: '120px', height: '20%'}}> <img style={{height: '100%', alignContent: 'center'}} src={table} alt="my image" onClick={pause}/> </button>
+    </div>
+  </div>
   );
 };
 
