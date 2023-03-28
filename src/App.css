@@ -89,15 +89,3 @@ td {
 .move-down {
   margin-top: 210px;
 }
-
-.image-button {
-  width: 100px;
-  height: 100px;
-  background-image: url('../images/Table.png');
-  background-color: #fff;
-  border-radius: 10px;
-  background-size: cover;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
