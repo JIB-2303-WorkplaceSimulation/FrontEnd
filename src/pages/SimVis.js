@@ -64,6 +64,11 @@ function SimVis() {
     maxZ = Math.max(maxZ, element.Corner1_zcoord, element.Corner2_zcoord);
   });
 
+  function findMin(key) {
+    const datas = rooms.map((node) => node[key]);
+    return Math.min(...datas)
+  }
+
   const increaseSpeed = () => {
     if (simulationSpeed > 1) {
       setSimulationSpeed(simulationSpeed - 1)
@@ -73,12 +78,37 @@ function SimVis() {
     setSimulationSpeed(simulationSpeed + 1)
   }
   const pause = () => {
-    setStoredSimulationSpeed(simulationSpeed)
+    if (simulationSpeed != 0){
+      setStoredSimulationSpeed(simulationSpeed)
+    }
     setSimulationSpeed(0)
   }
   const play = () => {
     setSimulationSpeed(storedsimulationSpeed)
   }
+  const addTable = () => {
+    const newID = Math.max(...furnitureIds) + 1;
+    setFurnitureIds((prevFurnitureIds) => [...prevFurnitureIds, newID]);
+  
+    const newRoom = { ...rooms[0] };
+    newRoom.room_furniture = [...newRoom.room_furniture, newID];
+    setRooms((prevRooms) => [newRoom, ...prevRooms.slice(1)]);
+  
+    const newFurnitureItem = {
+      id: newID,
+      type: "Table",
+      Name: "Table",
+      room_id: newRoom.id,
+      x_coord: 0,
+      z_coord: 0,
+      x_length: 2,
+      z_length: 2,
+      face_direction: "North",
+    };
+    setFurniture((prevFurniture) => [...prevFurniture, newFurnitureItem]);
+  };
+  console.log(furniture)
+  console.log(rooms)
   return (
     <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
     <Canvas style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
@@ -108,11 +138,11 @@ function SimVis() {
       <button onClick={play} style={{marginBottom: '10px', width: '60px'}}> Play </button>
       <button onClick={pause} style={{width: '60px'}}> Pause </button>
     </div>
-    <div className="selector" style={{position: 'absolute', top: 90, left: 10}}>
-    <button style={{ marginTop: '15px', marginLeft: '25px', width: '120px', height: '20%'}}> <img style={{height: '100%', alignContent: 'center'}} src={table} alt="my image" onClick={pause}/> </button>
-    <button style={{ marginTop: '15px', marginLeft: '25px', width: '120px', height: '20%'}}> <img style={{height: '100%', alignContent: 'center'}} src={table} alt="my image" onClick={pause}/> </button>
-    <button style={{ marginTop: '15px', marginLeft: '25px', width: '120px', height: '20%'}}> <img style={{height: '100%', alignContent: 'center'}} src={table} alt="my image" onClick={pause}/> </button>
-    <button style={{ marginTop: '15px', marginLeft: '25px', width: '120px', height: '20%'}}> <img style={{height: '100%', alignContent: 'center'}} src={table} alt="my image" onClick={pause}/> </button>
+    <div class="flex-container" style={{ position: 'absolute', top: 90, left: 10, zIndex: 1 }}>
+      <button style={{ width: '120px', height: '20%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={table} alt="my image" onClick={addTable}/> </button>
+      <button style={{ width: '120px', height: '20%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={table} alt="my image" onClick={pause}/> </button>
+      <button style={{ width: '120px', height: '20%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={table} alt="my image" onClick={pause}/> </button>
+      <button style={{ width: '120px', height: '20%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={table} alt="my image" onClick={pause}/> </button>
     </div>
   </div>
   );
