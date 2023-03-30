@@ -4,7 +4,9 @@ import { useFrame } from "@react-three/fiber";
 
 export default function Worker(props) {
   // Create a reference to the cube object
+  console.log("Made it to worker")
   const cubeRef = useRef();
+  const speed = [.5,.5]
   var frame = 0
   var frameLimit = props.simulationSpeed
   var rooms = props.rooms.map(room => ({
@@ -24,8 +26,8 @@ export default function Worker(props) {
     var possibleXMovement = [0];
     var possibleZMovement = [0];
     // var moving = false
-    const attemptX = cubeRef.current.position.x + props.speed[0] * possibleXMovement[Math.floor(Math.random() * possibleXMovement.length)]
-    const attemptZ = cubeRef.current.position.z + props.speed[1] * possibleXMovement[Math.floor(Math.random() * possibleXMovement.length)]
+    const attemptX = cubeRef.current.position.x + speed[0] * possibleXMovement[Math.floor(Math.random() * possibleXMovement.length)]
+    const attemptZ = cubeRef.current.position.z + speed[1] * possibleXMovement[Math.floor(Math.random() * possibleXMovement.length)]
     for (const room in rooms) {
       if (
         attemptX >= room.minX &&
@@ -38,21 +40,21 @@ export default function Worker(props) {
       }
     }
 
-     if (cubeRef.current.position.x + props.speed[0] < props.maxX){
+     if (cubeRef.current.position.x + speed[0] < props.maxX){
          possibleXMovement.push(1);
      }
-     if (cubeRef.current.position.x - props.speed[0] > props.minX){
+     if (cubeRef.current.position.x - speed[0] > props.minX){
        possibleXMovement.push(-1);
      }
-     if (cubeRef.current.position.z + props.speed[1] < props.maxZ){
+     if (cubeRef.current.position.z + speed[1] < props.maxZ){
        possibleZMovement.push(1);
      }
-     if (cubeRef.current.position.z - props.speed[1] > props.minZ){
+     if (cubeRef.current.position.z - speed[1] > props.minZ){
        possibleZMovement.push(-1);
      }
 
-     cubeRef.current.position.x += props.speed[0] * possibleXMovement[Math.floor(Math.random() * possibleXMovement.length)];
-     cubeRef.current.position.z += props.speed[1] * possibleZMovement[Math.floor(Math.random() * possibleZMovement.length)];
+     cubeRef.current.position.x += speed[0] * possibleXMovement[Math.floor(Math.random() * possibleXMovement.length)];
+     cubeRef.current.position.z += speed[1] * possibleZMovement[Math.floor(Math.random() * possibleZMovement.length)];
   });
 
   // Create the cube object

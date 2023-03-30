@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 // import { useFrame } from "@react-three/fiber";
 // import * as THREE from "three";
 
@@ -20,7 +21,10 @@ export default function Furniture(props) {
   const [position, setPosition] = useState([x,0,z]);
   const [clicked, setClicked] = useState(false);
   function clickEvent() {
-    setClicked(!clicked)
+    setClicked(!clicked);
+    if (props.onRemove) {
+      props.onRemove(f, !clicked);
+    }
   }
   useEffect(() => {
     const handleKeyDown = (e) => {
