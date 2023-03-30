@@ -20,6 +20,7 @@ function SimVis() {
   const id = parseInt(window.location.pathname.substring(8));
   const [simulationSpeed, setSimulationSpeed] = useState(10);
   const [storedsimulationSpeed, setStoredSimulationSpeed] = useState(10);
+  const [removeButton, setRemoveButton] = useState({ visible: false, furnitureId: null });
   var minX = 1000;
   var minZ = 1000;
   var maxX = -1000;
@@ -147,6 +148,22 @@ function SimVis() {
     };
     setWorker((prevWorker) => [...prevWorker, newWorker]);
   };
+
+  const removeFurniture = (furnitureId) => {
+    setFurniture((prevFurniture) => prevFurniture.filter((f) => f.id !== furnitureId));
+  
+    setRooms((prevRooms) =>
+      prevRooms.map((room) => {
+        if (room.room_furniture.includes(furnitureId)) {
+          return {
+            ...room,
+            room_furniture: room.room_furniture.filter((id) => id !== furnitureId),
+          };
+        }
+        return room;
+      })
+    );
+  };
   console.log(rooms)
   console.log(worker)
   console.log(id)
@@ -166,7 +183,12 @@ function SimVis() {
       {furniture
         .filter((f) => furnitureIds.includes(f.id))
         .map((f) => {
-          return <Furniture key={f.id} f = {f}/>
+          return <Furniture
+            f = {f}
+            onRemove={(f, clicked) => {
+              setRemoveButton({ visible: clicked, furnitureId: f });
+            }}
+          />
         })
       }
       {worker
@@ -190,12 +212,23 @@ function SimVis() {
       <button style={{ width: '120px', height: '25%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={chair} alt="my image" onClick={addChair}/> </button>
       <button style={{ width: '120px', height: '25%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={dude} alt="my image" onClick={addWorker}/> </button>
     </div>
-    {/* <div class="flex-container" style={{ position: 'absolute', top: 90, right: 10, zIndex: 1 }}>
-      <button style={{ width: '120px', height: '20%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={table} alt="my image" onClick={addTable}/> </button>
-      <button style={{ width: '120px', height: '20%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={table} alt="my image" onClick={addChair}/> </button>
-      <button style={{ width: '120px', height: '20%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={table} alt="my image" onClick={pause}/> </button>
-      <button style={{ width: '120px', height: '20%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={table} alt="my image" onClick={pause}/> </button>
-    </div> */}
+    {removeButton.visible && (
+      <div class="flex-container" style={{ width: '310px', position: 'absolute', top: 90, right: 10, zIndex: 1 }}>
+        <div > Name: {removeButton.furnitureId.Name} </div>
+        <div > Type: {removeButton.furnitureId.type} </div>
+        <div > ID: {removeButton.furnitureId.id} </div>
+        <div > Location: ({removeButton.furnitureId.x_coord}, {removeButton.furnitureId.z_coord}) </div>
+        <div style={{backgroundColor: '#404BE3'}}> </div>
+        <button 
+          style={{ width: '170px', height: '15%', backgroundColor: '#9c1515', fontSize: '3.5vh'}} 
+            onClick={() => {
+              removeFurniture(removeButton.furnitureId.id);
+              setRemoveButton({ visible: false, furnitureId: null });
+            }}>
+            DELETE
+        </button>
+      </div>
+    )}
   </div>
   );
 };
