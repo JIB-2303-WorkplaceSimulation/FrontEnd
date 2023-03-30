@@ -28,6 +28,7 @@ button {
   height: 30px;
   width: 100px;
   text-align: center;
+  cursor: pointer;
 }
 
 rect {
@@ -88,4 +89,33 @@ td {
 
 .move-down {
   margin-top: 210px;
+}
+
+.flex-container {
+  height: calc(100vh - 140px);
+  display: flex;
+  flex-direction: column;
+  background-color: #404BE3;
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+  border-radius: 20px;
+  width: 170px;
+}
+
+.flex-container::before {
+  content: "";
+}
+
+.flex-container::after {
+  content: "";
+}
+
+.flex-container > div {
+  background-color: #ffffff;
+  width: 140px;
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
 }
