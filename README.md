@@ -3,6 +3,18 @@
 A web-based 3D Simulator designed to help workplaces more efficiently manage their employees and resources.
 
 # Release Notes
+## Version 0.4.0
+
+### Features
+
+- User can select one or multiple furniture items and move them using arrow keys
+
+### Bug Fixes
+
+### Known Issues
+
+- The furniture items can be moved outside of the room boundaries if deliberately instructed
+
 ## Version 0.3.0
 
 ### Features
