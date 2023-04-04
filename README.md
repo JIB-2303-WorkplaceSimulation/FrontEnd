@@ -13,6 +13,7 @@ A web-based 3D Simulator designed to help workplaces more efficiently manage the
 - When objects are clicked on, a panel is created on the right hand side with info about the object
 - Info panel includes a delete button which removes the object from the simulation
 - Whenever a highlighted object is clicked on, the info panel is removed if it was there before
+- Features/attributes for the primary workstation have been added to the Directus backend
 
 ### Bug Fixes
 
