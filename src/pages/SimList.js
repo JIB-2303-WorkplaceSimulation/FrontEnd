@@ -33,7 +33,7 @@ export default function SimList(){
     //Runs on the first render
     //And any time any dependency value changes
     axios.get("https://jsv2r3kn.directus.app/items/Furniture").then
-  ((result) => {
+((result) => {
      setFurniture(result.data.data);
     })
     .catch((err) => {

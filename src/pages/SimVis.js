@@ -89,7 +89,71 @@ function SimVis() {
       setStoredSimulationSpeed(simulationSpeed)
     }
     setSimulationSpeed(0)
+    getToken().then(token => {
+      for (let f of furniture) {
+        console.log("prnt" + f )
+        updateCoordinates(f.id, token, f.x_coord, f.z_coord)
+      }
+    })
+
+    
   }
+
+  const updateCoordinates = (id, token, x_coord, z_coord) => {
+    var data = JSON.stringify({
+      "x_coord": x_coord,
+      "z_coord": z_coord
+
+    });
+    
+    var config = {
+      method: 'patch',
+      url: `https://jsv2r3kn.directus.app/items/Furniture/${id}`,
+      headers: {  
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, 
+      },
+      data : data
+    };
+    
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  const getToken = () => {
+    return new Promise((resolve, reject) => {
+      var data = JSON.stringify({
+        "email": "admin@email.com",
+        "password": "admin"
+      });
+      
+      var config = {
+        method: 'post',
+        url: 'https://jsv2r3kn.directus.app/auth/login',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : data
+      };
+      
+      axios(config)
+      .then(function (response) {
+        resolve(response.data.data["access_token"])
+      })
+      .catch(function (error) {
+        console.log(error);
+        reject(error)
+      });
+    })
+    
+  }
+
+
   const play = () => {
     setSimulationSpeed(storedsimulationSpeed)
   }

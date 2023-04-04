@@ -39,9 +39,10 @@ export default function Furniture(props) {
         setPosition((prevPos) => [prevPos[0] + 0.1, prevPos[1], prevPos[2]]);
       }
     };
+    console.log("pos" + position)
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [clicked]);
+  }, [clicked, position]);
   if (f.type === "Chair") {
     color = 0xF28C28;
     return (
@@ -101,4 +102,5 @@ export default function Furniture(props) {
       </group>
     )
   }
+  return [position]
 }
