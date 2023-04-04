@@ -8,12 +8,18 @@ A web-based 3D Simulator designed to help workplaces more efficiently manage the
 ### Features
 
 - User can select one or multiple furniture items and move them using arrow keys
+- Panel on left side has buttons with table, chair, and worker icons respectively
+- Buttons on panel create a new instance of whatever object is pictured on the button when pressed. Object will start at (0,0) and on the ground
+- When objects are clicked on, a panel is created on the right hand side with info about the object
+- Info panel includes a delete button which removes the object from the simulation
+- Whenever a highlighted object is clicked on, the info panel is removed if it was there before
 
 ### Bug Fixes
 
+- Simulation is less jittery
+
 ### Known Issues
 
-- The furniture items can be moved outside of the room boundaries if deliberately instructed
 
 ## Version 0.3.0
 
@@ -34,8 +40,6 @@ A web-based 3D Simulator designed to help workplaces more efficiently manage the
 
 ### Known Issues
 
-- Simulation algorithm needs to be developed fully
-- Worker needs to be bounded by floors and shouldn't move through furniture
 
 ## Version 0.2.0
 
