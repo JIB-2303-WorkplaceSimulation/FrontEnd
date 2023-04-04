@@ -14,7 +14,10 @@ export default function Worker(props) {
     minZ: Math.min(room.Corner1_zcoord, room.Corner2_zcoord),
     maxX: Math.max(room.Corner1_xcoord, room.Corner2_xcoord),
     maxZ: Math.max(room.Corner1_zcoord, room.Corner2_zcoord),
+  
 }));
+  var prevXmove = 0;
+  var prevYmove = 0;
 
   // Define the animation function
   useFrame((state, delta) => {
@@ -53,8 +56,14 @@ export default function Worker(props) {
        possibleZMovement.push(-1);
      }
 
-     cubeRef.current.position.x += speed[0] * possibleXMovement[Math.floor(Math.random() * possibleXMovement.length)];
-     cubeRef.current.position.z += speed[1] * possibleZMovement[Math.floor(Math.random() * possibleZMovement.length)];
+    var nextXMove = [possibleXMovement[Math.floor(Math.random() * possibleXMovement.length)], prevXmove];
+    nextXMove = nextXMove[Math.floor(Math.random() * nextXMove.length)]
+    var nextYMove = [possibleZMovement[Math.floor(Math.random() * possibleZMovement.length)], prevYmove];
+    nextYMove = nextYMove[Math.floor(Math.random() * nextYMove.length)]
+    cubeRef.current.position.x += speed[0] * nextXMove
+    cubeRef.current.position.z += speed[1] * nextYMove
+    prevXmove = nextXMove
+    prevYmove = nextYMove
   });
 
   // Create the cube object
