@@ -1,5 +1,7 @@
+import { events } from "@react-three/fiber";
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import SimVis from "../pages/SimVis.js";
 // import { useFrame } from "@react-three/fiber";
 // import * as THREE from "three";
 
@@ -20,33 +22,62 @@ export default function Furniture(props) {
   var color = 0x0;
   const [position, setPosition] = useState([x,0,z]);
   const [clicked, setClicked] = useState(false);
+  const [unclicked, setUnclicked] = useState(true);
+  //const [childProperty, setChildProperty] = useState('');
+
+
   function clickEvent() {
     setClicked(!clicked);
+    setUnclicked(clicked);
     if (props.onRemove) {
       props.onRemove(f, !clicked);
     }
+    console.log("hi I was clicked")
+    console.log(unclicked)
   }
+
+  function updateData() {
+      props.onUnclicked(f)
+  }
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!clicked) return;
       if (e.code === "ArrowUp") {
         setPosition((prevPos) => [prevPos[0], prevPos[1], prevPos[2] - 0.1]);
+        props.f.x_coord = position[0];
+        props.f.y_coord = position[1];
+        props.f.z_coord = position[2] - 0.1;
+        console.log("furniture.js pos: " + position)
       } else if (e.code === "ArrowDown") {
         setPosition((prevPos) => [prevPos[0], prevPos[1], prevPos[2] + 0.1]);
+        props.f.x_coord = position[0];
+        props.f.y_coord = position[1];
+        props.f.z_coord = position[2] + 0.1;
       } else if (e.code === "ArrowLeft") {
         setPosition((prevPos) => [prevPos[0] - 0.1, prevPos[1], prevPos[2]]);
+        props.f.x_coord = position[0] - 0.1;
+        props.f.y_coord = position[1];
+        props.f.z_coord = position[2];
       } else if (e.code === "ArrowRight") {
         setPosition((prevPos) => [prevPos[0] + 0.1, prevPos[1], prevPos[2]]);
+        props.f.x_coord = position[0] + 0.1;
+        props.f.y_coord = position[1];
+        props.f.z_coord = position[2];
       }
     };
     console.log("pos" + position)
+    if (unclicked) {
+      console.log("unclicked")
+    }
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [clicked, position]);
   if (f.type === "Chair") {
     color = 0xF28C28;
+    
     return (
-      <group key={f.id*10} position={position} rotation={[0, rotation, 0]} onClick={clickEvent}>
+      <group key={f.id*10} position={position} rotation={[0, rotation, 0]} onClick={clickEvent} onUpdate={updateData}>
         <mesh receiveShadow castShadow key={f.id*10+1} position={[0,1,0]}>
           <boxGeometry args={[1,0.1,1]} />
           <meshPhongMaterial color={clicked ? 'white': color} />
@@ -102,5 +133,5 @@ export default function Furniture(props) {
       </group>
     )
   }
-  return [position]
+  return <div>SimVis myVar={position}</div>
 }
