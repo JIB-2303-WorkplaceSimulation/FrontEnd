@@ -23,9 +23,7 @@ export default function Furniture(props) {
   const [position, setPosition] = useState([x,0,z]);
   const [clicked, setClicked] = useState(false);
   const [unclicked, setUnclicked] = useState(true);
-  //const [childProperty, setChildProperty] = useState('');
-
-
+  
   function clickEvent() {
     setClicked(!clicked);
     setUnclicked(clicked);
@@ -66,9 +64,9 @@ export default function Furniture(props) {
         props.f.z_coord = position[2];
       }
     };
-    console.log("pos" + position)
+    console.log("Pos: " + position)
     if (unclicked) {
-      console.log("unclicked")
+      console.log("Furniture was unclicked")
     }
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);

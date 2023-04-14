@@ -92,15 +92,15 @@ function SimVis() {
       setStoredSimulationSpeed(simulationSpeed)
     }
     setSimulationSpeed(0)
+  }
+
+  const save = () => {
     getToken().then(token => {
       for (let f of furniture) {
         console.log("prnt" + f )
         updateCoordinates(f.id, token, f.x_coord, f.z_coord)
       }
-      //editEntry(token)
     })
-
-    
   }
 
   const updateCoordinates = (id, token, x_coord, z_coord) => {
@@ -265,12 +265,6 @@ function SimVis() {
       })
     );
   };
-
-  const handleChildProperty = (property) => {
-    setPosition(property);
-    console.log("SUCCESFULLY SET CHILD PROP");
-  };
- 
   console.log(rooms)
   console.log(worker)
   console.log(id)
@@ -301,7 +295,6 @@ function SimVis() {
                   if (i.id == f.id) {
                     i.x_coord = f.x_coord;
                     i.z_coord = f.z_coord;
-                    console.log("i position: x: " + i.x_coord + ", z: " + i.z_coord)
                     console.log("f position: x: " + f.x_coord + ", z: " + f.z_coord)
                   }
               }
@@ -324,7 +317,10 @@ function SimVis() {
     </div>
     <div style={{ display: 'flex', flexDirection: 'column', position: 'absolute', top: 10, left: 120, zIndex: 1 }}>
       <button onClick={play} style={{marginBottom: '10px', width: '60px'}}> Play </button>
-      <button onClick={pause} onPropertyChange={handleChildProperty} style={{width: '60px'}}> Pause </button>
+      <button onClick={pause} style={{width: '60px'}}> Pause </button>
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', position: 'absolute', top: 10, left: 190, zIndex: 1 }}>
+      <button onClick={save} style={{width: '60px'}}> Save </button> 
     </div>
     <div class="flex-container" style={{ position: 'absolute', top: 90, left: 10, zIndex: 1 }}>
       <button style={{ width: '120px', height: '25%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={table} alt="my image" onClick={addTable}/> </button>
