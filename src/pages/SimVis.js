@@ -21,6 +21,9 @@ function SimVis() {
   const [simulationSpeed, setSimulationSpeed] = useState(10);
   const [storedsimulationSpeed, setStoredSimulationSpeed] = useState(10);
   const [removeButton, setRemoveButton] = useState({ visible: false, furnitureId: null });
+  const [unclicked, setUnclicked] = useState({ visible: false, furnitureId: null });
+  const [position, setPosition] = useState(null);
+
   var minX = 1000;
   var minZ = 1000;
   var maxX = -1000;
@@ -89,7 +92,104 @@ function SimVis() {
       setStoredSimulationSpeed(simulationSpeed)
     }
     setSimulationSpeed(0)
+    getToken().then(token => {
+      for (let f of furniture) {
+        console.log("prnt" + f )
+        updateCoordinates(f.id, token, f.x_coord, f.z_coord)
+      }
+      //editEntry(token)
+    })
+
+    
   }
+
+  const updateCoordinates = (id, token, x_coord, z_coord) => {
+    var data = JSON.stringify({
+      "x_coord": x_coord,
+      "z_coord": z_coord
+    });
+    
+    var config = {
+      method: 'patch',
+      url: `https://jsv2r3kn.directus.app/items/Furniture/${id}`,
+      headers: {  
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, 
+      },
+      data : data
+    };
+    
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  const getToken = () => {
+    return new Promise((resolve, reject) => {
+      var data = JSON.stringify({
+        "email": "admin@email.com",
+        "password": "admin"
+      });
+      
+      var config = {
+        method: 'post',
+        url: 'https://jsv2r3kn.directus.app/auth/login',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : data
+      };
+      
+      axios(config)
+      .then(function (response) {
+        resolve(response.data.data["access_token"])
+      })
+      .catch(function (error) {
+        console.log(error);
+        reject(error)
+      });
+    })
+    
+  }
+
+  // const editEntry = (token) => {
+  //     var data = JSON.stringify({
+  //       "id": 24,
+  //       "type": "Chair",
+  //       "Name": "Stool",
+  //       "room_id": 5,
+  //       "x_coord": -1,
+  //       "z_coord": 5,
+  //       "x_length": 1,
+  //       "z_length": 1,
+  //       "face_direction": "west",
+  //       "workstation_id": 1
+  //     });
+      
+  //     var config = {
+  //       method: 'post',
+  //       url: 'https://jsv2r3kn.directus.app/items/Furniture/20',
+  //       headers: { 
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${token}`, 
+  //       },
+  //       data : data
+  //     };
+      
+  //     axios(config)
+  //   .then(function (response) {
+  //     console.log(JSON.stringify(response.data));
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+  // }
+
+
   const play = () => {
     setSimulationSpeed(storedsimulationSpeed)
   }
@@ -134,6 +234,7 @@ function SimVis() {
       face_direction: "North",
     };
     setFurniture((prevFurniture) => [...prevFurniture, newFurnitureItem]);
+    console.log(furniture)
   };
   
   const addWorker = () => {
@@ -164,6 +265,12 @@ function SimVis() {
       })
     );
   };
+
+  const handleChildProperty = (property) => {
+    setPosition(property);
+    console.log("SUCCESFULLY SET CHILD PROP");
+  };
+ 
   console.log(rooms)
   console.log(worker)
   console.log(id)
@@ -188,9 +295,21 @@ function SimVis() {
             onRemove={(f, clicked) => {
               setRemoveButton({ visible: clicked, furnitureId: f });
             }}
+            
+            onUnclicked={(f) => {
+              for (let i of furniture) {
+                  if (i.id == f.id) {
+                    i.x_coord = f.x_coord;
+                    i.z_coord = f.z_coord;
+                    console.log("i position: x: " + i.x_coord + ", z: " + i.z_coord)
+                    console.log("f position: x: " + f.x_coord + ", z: " + f.z_coord)
+                  }
+              }
+            }}
           />
         })
       }
+      
       {worker
         .filter((guy) => guy.sim_id === id)
         .map((guy) => {
@@ -205,7 +324,7 @@ function SimVis() {
     </div>
     <div style={{ display: 'flex', flexDirection: 'column', position: 'absolute', top: 10, left: 120, zIndex: 1 }}>
       <button onClick={play} style={{marginBottom: '10px', width: '60px'}}> Play </button>
-      <button onClick={pause} style={{width: '60px'}}> Pause </button>
+      <button onClick={pause} onPropertyChange={handleChildProperty} style={{width: '60px'}}> Pause </button>
     </div>
     <div class="flex-container" style={{ position: 'absolute', top: 90, left: 10, zIndex: 1 }}>
       <button style={{ width: '120px', height: '25%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={table} alt="my image" onClick={addTable}/> </button>
