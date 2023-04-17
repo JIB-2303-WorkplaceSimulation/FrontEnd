@@ -1,7 +1,7 @@
-import { events } from "@react-three/fiber";
+// import { events } from "@react-three/fiber";
 import React, { useState, useEffect } from "react";
-import { createPortal } from "react-dom";
-import SimVis from "../pages/SimVis.js";
+// import { createPortal } from "react-dom";
+// import SimVis from "../pages/SimVis.js";
 // import { useFrame } from "@react-three/fiber";
 // import * as THREE from "three";
 
@@ -9,6 +9,9 @@ export default function Furniture(props) {
   const f = props.f
   const x = f.x_coord;
   const z = f.z_coord;
+  const room = props.room[0];
+  const x_length = f.type === "Table" ? f.x_length : 1
+  const z_length = f.type === "Table" ? f.z_length : 1
   var rotation = Math.PI/2;
   if (f.face_direction === "North") {
     rotation *= 0;
@@ -30,8 +33,6 @@ export default function Furniture(props) {
     if (props.onRemove) {
       props.onRemove(f, !clicked);
     }
-    console.log("hi I was clicked")
-    console.log(unclicked)
   }
 
   function updateData() {
@@ -42,35 +43,34 @@ export default function Furniture(props) {
     const handleKeyDown = (e) => {
       if (!clicked) return;
       if (e.code === "ArrowUp") {
+        if (z-0.1-z_length/2 < room.Corner1_zcoord && z-0.1-z_length/2 < room.Corner2_zcoord) return;
         setPosition((prevPos) => [prevPos[0], prevPos[1], prevPos[2] - 0.1]);
         props.f.x_coord = position[0];
         props.f.y_coord = position[1];
         props.f.z_coord = position[2] - 0.1;
-        console.log("furniture.js pos: " + position)
       } else if (e.code === "ArrowDown") {
+        if (z+0.1+z_length/2 > room.Corner1_zcoord && z+0.1+z_length/2 > room.Corner2_zcoord) return;
         setPosition((prevPos) => [prevPos[0], prevPos[1], prevPos[2] + 0.1]);
         props.f.x_coord = position[0];
         props.f.y_coord = position[1];
         props.f.z_coord = position[2] + 0.1;
       } else if (e.code === "ArrowLeft") {
+        if (x-0.1-x_length/2 < room.Corner1_xcoord && x-0.1-x_length/2 < room.Corner2_xcoord) return;
         setPosition((prevPos) => [prevPos[0] - 0.1, prevPos[1], prevPos[2]]);
         props.f.x_coord = position[0] - 0.1;
         props.f.y_coord = position[1];
         props.f.z_coord = position[2];
       } else if (e.code === "ArrowRight") {
+        if (x+0.1+x_length/2 > room.Corner1_xcoord && x+0.1+x_length/2 > room.Corner2_xcoord) return;
         setPosition((prevPos) => [prevPos[0] + 0.1, prevPos[1], prevPos[2]]);
         props.f.x_coord = position[0] + 0.1;
         props.f.y_coord = position[1];
         props.f.z_coord = position[2];
       }
     };
-    console.log("Pos: " + position)
-    if (unclicked) {
-      console.log("Furniture was unclicked")
-    }
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [clicked, position]);
+  }, [clicked, position, props.f, unclicked, x, z, room, x_length, z_length]);
   if (f.type === "Chair") {
     color = 0xF28C28;
     

@@ -21,8 +21,8 @@ function SimVis() {
   const [simulationSpeed, setSimulationSpeed] = useState(10);
   const [storedsimulationSpeed, setStoredSimulationSpeed] = useState(10);
   const [removeButton, setRemoveButton] = useState({ visible: false, furnitureId: null });
-  const [unclicked, setUnclicked] = useState({ visible: false, furnitureId: null });
-  const [position, setPosition] = useState(null);
+  // const [unclicked, setUnclicked] = useState({ visible: false, furnitureId: null });
+  // const [position, setPosition] = useState(null);
 
   var minX = 1000;
   var minZ = 1000;
@@ -88,19 +88,37 @@ function SimVis() {
     setSimulationSpeed(simulationSpeed + 1)
   }
   const pause = () => {
-    if (simulationSpeed != 0){
+    if (simulationSpeed !== 0){
       setStoredSimulationSpeed(simulationSpeed)
     }
     setSimulationSpeed(0)
   }
 
   const save = () => {
+    // Check for overlapping
+    for (let f1 of furniture) {
+      for (let f2 of furniture) {
+        if (f1.id < f2.id) {
+          let f1_x_len = f1.type === "Table" ? f1.x_length : 1
+          let f2_x_len = f2.type === "Table" ? f2.x_length : 1
+          let f1_z_len = f1.type === "Table" ? f1.z_length : 1
+          let f2_z_len = f2.type === "Table" ? f2.z_length : 1
+          if (f1.x_coord - f2.x_coord > (f1_x_len+f2_x_len)/-2 
+          && f1.x_coord - f2.x_coord < (f1_x_len+f2_x_len)/2
+          && f1.z_coord - f2.z_coord > (f1_z_len+f2_z_len)/-2 
+          && f1.z_coord - f2.z_coord < (f1_z_len+f2_z_len)/2) {
+            alert("Saving failed. There are overlapping items. Please fix them before saving.");
+            return;
+          }
+        }
+      }
+    }
     getToken().then(token => {
       for (let f of furniture) {
-        console.log("prnt" + f )
         updateCoordinates(f.id, token, f.x_coord, f.z_coord)
       }
     })
+    alert("Furniture positions have been saved successfully")
   }
 
   const updateCoordinates = (id, token, x_coord, z_coord) => {
@@ -265,9 +283,6 @@ function SimVis() {
       })
     );
   };
-  console.log(rooms)
-  console.log(worker)
-  console.log(id)
   return (
     <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
     <Canvas style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
@@ -285,17 +300,18 @@ function SimVis() {
         .filter((f) => furnitureIds.includes(f.id))
         .map((f) => {
           return <Furniture
+            key = {f.id}
             f = {f}
+            room={rooms.filter((r) => f.room_id === r.id)}
             onRemove={(f, clicked) => {
               setRemoveButton({ visible: clicked, furnitureId: f });
             }}
             
             onUnclicked={(f) => {
               for (let i of furniture) {
-                  if (i.id == f.id) {
+                  if (i.id === f.id) {
                     i.x_coord = f.x_coord;
                     i.z_coord = f.z_coord;
-                    console.log("f position: x: " + f.x_coord + ", z: " + f.z_coord)
                   }
               }
             }}
@@ -306,7 +322,7 @@ function SimVis() {
       {worker
         .filter((guy) => guy.sim_id === id)
         .map((guy) => {
-          return <Worker maxX = {maxX} maxZ = {maxZ} minX = {minX} minZ = {minZ} initialPos = {[guy.x_coord,0.5,guy.z_coord]} simulationSpeed = {simulationSpeed} rooms = {rooms}/>
+          return <Worker key={guy.id} maxX = {maxX} maxZ = {maxZ} minX = {minX} minZ = {minZ} initialPos = {[guy.x_coord,0.5,guy.z_coord]} simulationSpeed = {simulationSpeed} rooms = {rooms}/>
         })
       }
       <PerspectiveCamera near={0.1} far={1000} position={[0, 0, 0]} lookAt={groupRef.current ? groupRef.current.position : [0, 0, 0]} />
@@ -322,13 +338,13 @@ function SimVis() {
     <div style={{ display: 'flex', flexDirection: 'column', position: 'absolute', top: 10, left: 190, zIndex: 1 }}>
       <button onClick={save} style={{width: '60px'}}> Save </button> 
     </div>
-    <div class="flex-container" style={{ position: 'absolute', top: 90, left: 10, zIndex: 1 }}>
-      <button style={{ width: '120px', height: '25%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={table} alt="my image" onClick={addTable}/> </button>
-      <button style={{ width: '120px', height: '25%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={chair} alt="my image" onClick={addChair}/> </button>
-      <button style={{ width: '120px', height: '25%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={dude} alt="my image" onClick={addWorker}/> </button>
+    <div className="flex-container" style={{ position: 'absolute', top: 90, left: 10, zIndex: 1 }}>
+      <button style={{ width: '120px', height: '25%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={table} alt="" onClick={addTable}/> </button>
+      <button style={{ width: '120px', height: '25%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={chair} alt="" onClick={addChair}/> </button>
+      <button style={{ width: '120px', height: '25%'}}> <img style={{height: '100%', maxHeight: '110px', alignContent: 'center'}} src={dude} alt="" onClick={addWorker}/> </button>
     </div>
     {removeButton.visible && (
-      <div class="flex-container" style={{ width: '310px', position: 'absolute', top: 90, right: 10, zIndex: 1 }}>
+      <div className="flex-container" style={{ width: '310px', position: 'absolute', top: 90, right: 10, zIndex: 1 }}>
         <div > Name: {removeButton.furnitureId.Name} </div>
         <div > Type: {removeButton.furnitureId.type} </div>
         <div > ID: {removeButton.furnitureId.id} </div>

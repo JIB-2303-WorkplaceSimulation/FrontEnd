@@ -1,10 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 // import * as THREE from "three";
 
 export default function Worker(props) {
   // Create a reference to the cube object
-  console.log("Made it to worker")
   const cubeRef = useRef();
   const speed = [.5,.5]
   var frame = 0
@@ -18,6 +17,13 @@ export default function Worker(props) {
 }));
   var prevXmove = 0;
   var prevYmove = 0;
+
+  // Make workers clickable
+  const [clicked, setClicked] = useState(false);
+  
+  function clickEvent() {
+    setClicked(!clicked);
+  }
 
   // Define the animation function
   useFrame((state, delta) => {
@@ -68,9 +74,9 @@ export default function Worker(props) {
 
   // Create the cube object
   return (
-    <mesh ref={cubeRef} position ={props.initialPos}>
+    <mesh ref={cubeRef} position={props.initialPos} onClick={clickEvent}>
       <boxGeometry args={[1,1,1]} />
-      <meshStandardMaterial color="hotpink" />
+      <meshStandardMaterial color={clicked ? 'white': "hotpink"} />
     </mesh>
   );
 }
