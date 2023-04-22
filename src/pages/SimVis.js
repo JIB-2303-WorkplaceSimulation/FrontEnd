@@ -262,8 +262,9 @@ function SimVis() {
       id: newID,
       Worker_Name: "Worker",
       sim_id: id,
-      x_coord: 0,
-      z_coord: 0
+      x_coord: 5,
+      z_coord: 5,
+      roomWID: 4,
     };
     setWorker((prevWorker) => [...prevWorker, newWorker]);
   };
@@ -322,7 +323,7 @@ function SimVis() {
       {worker
         .filter((guy) => guy.sim_id === id)
         .map((guy) => {
-          return <Worker key={guy.id} maxX = {maxX} maxZ = {maxZ} minX = {minX} minZ = {minZ} initialPos = {[guy.x_coord,0.5,guy.z_coord]} simulationSpeed = {simulationSpeed} rooms = {rooms}/>
+          return <Worker key={guy.id} maxX = {maxX} maxZ = {maxZ} minX = {minX} minZ = {minZ} initialPos = {[guy.x_coord,0.5,guy.z_coord]} simulationSpeed = {simulationSpeed} room = {rooms.filter((r) => r.id === guy.roomWID)[0]}/>
         })
       }
       <PerspectiveCamera near={0.1} far={1000} position={[0, 0, 0]} lookAt={groupRef.current ? groupRef.current.position : [0, 0, 0]} />
