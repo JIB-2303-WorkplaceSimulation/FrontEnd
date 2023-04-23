@@ -2,7 +2,46 @@
 
 A web-based 3D Simulator designed to help workplaces more efficiently manage their employees and resources.
 
+# Installation Guide
+
+Refer to the "Getting Started with Create React App" below for more details. A very brief installation guide is provided here.
+
+## Downloading Node.js and npm
+
+- Go to [this link](https://nodejs.org/en/download) to download Node.js and npm in order to run our program on your own device.
+
+## Install Package Dependencies
+
+- Run `npm install` on the project directory to install necessary package dependencies for this project. Package dependencies are stored in the "package.json" and "package-lock.json" files in the directory.
+
+## Run the Application
+
+- Run `npm start` to start the application. Open your browser and go to [http://localhost:3000](http://localhost:3000) to view the application.
+
+## Update Package Dependencies
+
+- Run `npm outdated` to view outdated packages.
+- Run `npm update` to update them.
+
 # Release Notes
+## Version 0.5.0
+
+### Features
+
+- Workers are now clickable when the simulation is paused
+- After moving furniture items, users can click the save button to attempt to save it
+- The save button saves the new positions of the furniture items if no overlap is detected, otherwise a popup will appear indicating failure
+
+### Bug Fixes
+
+- Worker movement is bounded by the room boundary
+- Furniture movement is bounded by the room boundary, and the new positions cannot be saved if there is overlap
+- API calls are changed to retrieve and update data from/to new directus slug
+
+### Known Issues
+
+- New furniture items and new workers have to be added manually via directus, not from the application UI
+
 ## Version 0.4.0
 
 ### Features
