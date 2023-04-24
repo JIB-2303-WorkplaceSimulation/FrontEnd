@@ -20,7 +20,7 @@ export default function SimList(){
   useEffect(() => {
     //Runs on the first render
     //And any time any dependency value changes
-    axios.get("https://jsv2r3kn.directus.app/items/Room").then
+    axios.get("https://workplacesim.directus.app/items/Room").then
   ((result) => {
      setRooms(result.data.data);
     })
@@ -32,7 +32,7 @@ export default function SimList(){
   useEffect(() => {
     //Runs on the first render
     //And any time any dependency value changes
-    axios.get("https://jsv2r3kn.directus.app/items/Furniture").then
+    axios.get("https://workplacesim.directus.app/items/Furniture").then
 ((result) => {
      setFurniture(result.data.data);
     })
@@ -44,7 +44,7 @@ export default function SimList(){
   useEffect(() => {
     //Runs on the first render
     //And any time any dependency value changes
-    axios.get("https://jsv2r3kn.directus.app/items/Worker").then
+    axios.get("https://workplacesim.directus.app/items/Worker").then
   ((result) => {
      setWorkers(result.data.data);
     })
