@@ -49,7 +49,7 @@ export default function Worker(props) {
     if (cubeRef.current.position.y + prevYmove * speed[1] < props.room.Corner2_ycoord && props.room.Corner1_ycoord < cubeRef.current.position.y + prevYmove * speed[1]){
       possibleXMovement.push(prevYmove);
     }
-    
+
     var nextXMove = possibleXMovement[Math.floor(Math.random() * possibleXMovement.length)];
     var nextYMove = possibleZMovement[Math.floor(Math.random() * possibleZMovement.length)];
     cubeRef.current.position.x += speed[0] * nextXMove
