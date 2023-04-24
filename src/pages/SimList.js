@@ -18,8 +18,7 @@ export default function SimList(){
 
 
   useEffect(() => {
-    //Runs on the first render
-    //And any time any dependency value changes
+    //Runs on the first render and any time any dependency value changes
     axios.get("https://jsv2r3kn.directus.app/items/Room").then
   ((result) => {
      setRooms(result.data.data);
@@ -30,8 +29,7 @@ export default function SimList(){
   }, [], rooms);
 
   useEffect(() => {
-    //Runs on the first render
-    //And any time any dependency value changes
+    //Runs on the first render and any time any dependency value changes
     axios.get("https://jsv2r3kn.directus.app/items/Furniture").then
   ((result) => {
      setFurniture(result.data.data);
