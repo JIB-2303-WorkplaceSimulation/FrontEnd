@@ -31,7 +31,7 @@ function SimVis() {
 
   useEffect(() => {
     axios
-      .get('https://jsv2r3kn.directus.app/items/Room')
+      .get('https://workplacesim.directus.app/items/Room')
       .then((result) => {
         setRooms(result.data.data);
       })
@@ -42,7 +42,7 @@ function SimVis() {
 
   useEffect(() => {
     axios
-      .get('https://jsv2r3kn.directus.app/items/Furniture')
+      .get('https://workplacesim.directus.app/items/Furniture')
       .then((result) => {
         setFurniture(result.data.data);
       })
@@ -53,7 +53,7 @@ function SimVis() {
 
   useEffect(() => {
     axios
-      .get('https://jsv2r3kn.directus.app/items/Worker')
+      .get('https://workplacesim.directus.app/items/Worker')
       .then((result) => {
         setWorker(result.data.data);
       })
@@ -129,7 +129,7 @@ function SimVis() {
     
     var config = {
       method: 'patch',
-      url: `https://jsv2r3kn.directus.app/items/Furniture/${id}`,
+      url: `https://workplacesim.directus.app/items/Furniture/${id}`,
       headers: {  
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`, 
@@ -155,7 +155,7 @@ function SimVis() {
       
       var config = {
         method: 'post',
-        url: 'https://jsv2r3kn.directus.app/auth/login',
+        url: 'https://workplacesim.directus.app/auth/login',
         headers: { 
           'Content-Type': 'application/json'
         },
