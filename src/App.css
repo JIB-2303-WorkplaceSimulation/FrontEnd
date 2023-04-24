@@ -9,7 +9,7 @@ body {
 
 input {
   border-radius: 10px;
-  background-color:#ffffff;
+  background-color:#9b6767;
   border-width: 1px;
   font-family: Arial;
   font-size: medium;
@@ -56,7 +56,7 @@ th {
 }
 
 td {
-  border: 1px solid #404BE3;
+  border: 1px solid #d0d1db;
   border-radius: 10px;
 }
 
