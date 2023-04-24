@@ -28,22 +28,31 @@ export default function Worker(props) {
     var possibleXMovement = [0];
     var possibleZMovement = [0];
 
-     if (cubeRef.current.position.x + speed[0] < props.room.Corner2_xcoord){
-         possibleXMovement.push(1);
-     }
-     if (cubeRef.current.position.x - speed[0] > props.room.Corner1_xcoord){
-       possibleXMovement.push(-1);
-     }
-     if (cubeRef.current.position.z + speed[1] < props.room.Corner2_zcoord){
-       possibleZMovement.push(1);
-     }
-     if (cubeRef.current.position.z - speed[1] > props.room.Corner1_zcoord){
-       possibleZMovement.push(-1);
-     }
+    if (cubeRef.current.position.x + speed[0] < props.room.Corner2_xcoord){
+        possibleXMovement.push(1);
+    }
+    if (cubeRef.current.position.x - speed[0] > props.room.Corner1_xcoord){
+      possibleXMovement.push(-1);
+    }
+    if (cubeRef.current.position.z + speed[1] < props.room.Corner2_zcoord){
+      possibleZMovement.push(1);
+    }
+    if (cubeRef.current.position.z - speed[1] > props.room.Corner1_zcoord){
+      possibleZMovement.push(-1);
+    }
 
-    var nextXMove = [possibleXMovement[Math.floor(Math.random() * possibleXMovement.length)], prevXmove];
+
+    if (cubeRef.current.position.x + prevXmove * speed[0] < props.room.Corner2_xcoord && props.room.Corner1_xcoord < cubeRef.current.position.x + prevXmove * speed[0]){
+      possibleXMovement.push(prevXmove);
+    }
+
+    if (cubeRef.current.position.y + prevYmove * speed[1] < props.room.Corner2_ycoord && props.room.Corner1_ycoord < cubeRef.current.position.y + prevYmove * speed[1]){
+      possibleXMovement.push(prevYmove);
+    }
+    
+    var nextXMove = [possibleXMovement[Math.floor(Math.random() * possibleXMovement.length)]];
     nextXMove = nextXMove[Math.floor(Math.random() * nextXMove.length)]
-    var nextYMove = [possibleZMovement[Math.floor(Math.random() * possibleZMovement.length)], prevYmove];
+    var nextYMove = [possibleZMovement[Math.floor(Math.random() * possibleZMovement.length)]];
     nextYMove = nextYMove[Math.floor(Math.random() * nextYMove.length)]
     cubeRef.current.position.x += speed[0] * nextXMove
     cubeRef.current.position.z += speed[1] * nextYMove
