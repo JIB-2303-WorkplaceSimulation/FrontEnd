@@ -95,7 +95,7 @@ td {
   height: calc(100vh - 140px);
   display: flex;
   flex-direction: column;
-  background-color: #404BE3;
+  background-color: #d89b179c;
   justify-content: space-between;
   align-items: center;
   align-content: flex-start;
