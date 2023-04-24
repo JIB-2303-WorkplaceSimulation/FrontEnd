@@ -50,10 +50,8 @@ export default function Worker(props) {
       possibleXMovement.push(prevYmove);
     }
     
-    var nextXMove = [possibleXMovement[Math.floor(Math.random() * possibleXMovement.length)]];
-    nextXMove = nextXMove[Math.floor(Math.random() * nextXMove.length)]
-    var nextYMove = [possibleZMovement[Math.floor(Math.random() * possibleZMovement.length)]];
-    nextYMove = nextYMove[Math.floor(Math.random() * nextYMove.length)]
+    var nextXMove = possibleXMovement[Math.floor(Math.random() * possibleXMovement.length)];
+    var nextYMove = possibleZMovement[Math.floor(Math.random() * possibleZMovement.length)];
     cubeRef.current.position.x += speed[0] * nextXMove
     cubeRef.current.position.z += speed[1] * nextYMove
     prevXmove = nextXMove
