@@ -174,38 +174,6 @@ function SimVis() {
     
   }
 
-  // const editEntry = (token) => {
-  //     var data = JSON.stringify({
-  //       "id": 24,
-  //       "type": "Chair",
-  //       "Name": "Stool",
-  //       "room_id": 5,
-  //       "x_coord": -1,
-  //       "z_coord": 5,
-  //       "x_length": 1,
-  //       "z_length": 1,
-  //       "face_direction": "west",
-  //       "workstation_id": 1
-  //     });
-      
-  //     var config = {
-  //       method: 'post',
-  //       url: 'https://jsv2r3kn.directus.app/items/Furniture/20',
-  //       headers: { 
-  //         'Content-Type': 'application/json',
-  //         'Authorization': `Bearer ${token}`, 
-  //       },
-  //       data : data
-  //     };
-      
-  //     axios(config)
-  //   .then(function (response) {
-  //     console.log(JSON.stringify(response.data));
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-  // }
 
 
   const play = () => {
