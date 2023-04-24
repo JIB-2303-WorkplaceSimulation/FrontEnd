@@ -218,6 +218,7 @@ function SimVis() {
         <div > Type: {removeButton.furnitureId.type} </div>
         <div > ID: {removeButton.furnitureId.id} </div>
         <div > Location: ({removeButton.furnitureId.x_coord}, {removeButton.furnitureId.z_coord}) </div>
+        <div > Worker: () </div>
         <div style={{backgroundColor: '#404BE3'}}> </div>
         <button 
           style={{ width: '170px', height: '15%', backgroundColor: '#9c1515', fontSize: '3.5vh'}} 
