@@ -65,8 +65,8 @@ export default function SimList(){
   const checkID = (inp) => {
     return (
       <div>
-        <p className="center">The Simulation ID input is <span style={{ fontWeight: 'bold', color: '#404BE3' }}>{inp}</span></p>
-        <p className="center">This data is from our Directus database</p>
+        <p className="center">The Simulation ID input is <span style={{ fontWeight: 'bold', color: '#FFC0CB' }}>{inp}</span></p>
+        <p className="center">This data is from the Directus database</p>
         <p className="center">All rooms in this simulation instance:</p>
         <table className="center">
           <thead>
@@ -102,7 +102,7 @@ export default function SimList(){
     ); 
   }
 
-    //Displaying the furniture data in table format with JS map function.
+    //Displaying the furniture data in table format with the JS map function.
 
   const DisplayFurnitureData = furniture.filter(obj => furniture_ids.includes(obj.id)).map(
     (info)=>{
@@ -117,7 +117,7 @@ export default function SimList(){
     }
   )
 
-  //Displaying the room data in table format with JS map function.
+  //Displaying the room data in table format with the JS map function.
 
   const DisplayRoomData = rooms.filter(obj => obj.sim_id === id).map(
     (info)=>{
