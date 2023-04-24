@@ -100,7 +100,7 @@ export default function SimList(){
     ); 
   }
 
-    //Displaying the furniture data in table format with JS map function.
+    //Displaying the furniture data in table format with the JS map function.
 
   const DisplayFurnitureData = furniture.filter(obj => furniture_ids.includes(obj.id)).map(
     (info)=>{
@@ -115,7 +115,7 @@ export default function SimList(){
     }
   )
 
-  //Displaying the room data in table format with JS map function.
+  //Displaying the room data in table format with the JS map function.
 
   const DisplayRoomData = rooms.filter(obj => obj.sim_id === id).map(
     (info)=>{
